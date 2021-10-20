@@ -9,4 +9,9 @@ class CollectionsController < ApplicationController
     @item_first = @compare.first
     @item_last = @compare.last
   end
+
+  def ranking
+    @collection = Collection.where(address: params[:id]).first
+    @assets = @collection.assets.order(elo_rating: :desc).limit(100)
+  end
 end

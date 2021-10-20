@@ -1,0 +1,93 @@
+<header class="bg-white shadow">
+  <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+    <div class="md:flex md:items-center md:justify-between md:space-x-5">
+      <div class="flex items-start space-x-5">
+        <div class="flex-shrink-0">
+          <div class="relative">
+            <img class="h-16 w-16 rounded-full" src="<%= @collection.image_url %>" alt="">
+            <span class="absolute inset-0 shadow-inner rounded-full" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="pt-2.5">
+          <h1 class="text-4xl font-bold text-gray-900"><%= @collection.name %></h1>
+        </div>
+      </div>
+        <div class="flex my-2">
+          <% if @collection.discord_url.present? %>
+            <a href="<%=@collection.discord_url%>"><i class="fa-brands fa-discord h-5 w-5 bg-gray-300 p-2 text-white rounded-lg mx-1 hover:bg-indigo-500"></i></a>
+          <% end %>
+          <% if @collection.twitter_username.present? %>
+          <a href="https://twitter.com/<%=@collection.twitter_username%>"><i class="fa-brands fa-twitter h-5 w-5 bg-gray-300 p-2 text-white rounded-lg mx-1 hover:bg-blue-500"></i></a>
+          <% end %>
+          <% if @collection.instagram_username.present? %>
+          <a href="https://instagram.com/<%=@collection.instagram_username%>"><i class="fa-brands fa-instagram h-5 w-5 bg-gray-300 p-2 text-white rounded-lg mx-1 hover:bg-pink-500"></i></a>
+          <% end %>
+          <% if @collection.external_url.present? %>
+          <a href="<%=@collection.external_url%>"><i class="fa-duotone fa-browser h-5 w-5 bg-gray-300 p-2 text-white rounded-lg mx-1 hover:bg-green-500"></i></a>
+          <% end %>
+        </div>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div class="px-4 py-4 sm:px-0">
+      <div class="flex flex-col">
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Asset
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Rank
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+
+                  <% @assets.each do |asset| %>
+                  <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <div class="flex items-center">
+                        <div class="flex-shrink-0 h-20 w-20">
+                          <img class="h-20 w-20 rounded-lg" src="<%=asset.image_url%>" alt="">
+                        </div>
+                        <div class="ml-4">
+                          <div class="text-lg font-medium text-gray-900">
+                            <%=asset.name%>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <span class="py-3 px-6 inline-flex text-lg leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                        <%=asset.elo_rating.round %>
+                      </span>
+                    </td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

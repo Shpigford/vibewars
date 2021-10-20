@@ -3,7 +3,11 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   mount Sidekiq::Web => "/sidekiq"
 
-  resources :collections
+  resources :collections do
+    member do
+      get 'ranking'
+    end
+  end
 
   resources :votes
 
