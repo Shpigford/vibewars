@@ -33,21 +33,26 @@
   <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
     <div class="px-4 py-4 sm:px-0">
       <div class="bg-white overflow-hidden shadow rounded-lg divide-y divide-gray-200">
-        <div class="px-4 py-5 sm:px-6">
-          <h2 class="text-xl leading-6 font-medium text-gray-900">Which one do you like more?</h2>
+        <div class="px-4 pt-7 sm:px-6">
+          <h2 class="text-4xl font-bold text-gray-900 text-center">Which one do you like more?</h2>
         </div>
         <%= turbo_frame_tag "choose_image" do %>
-        <div class="px-4 py-5 sm:p-6">
+        <div class="px-4 p-0 sm:p-6">
           <ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-2 xl:gap-x-8">
           <% @compare.each do |asset| %>
             
             <li class="relative">
               <%= link_to vote_path(asset.id) do %>
-              <div class="group block w-full aspect-w-1 aspect-h-1 rounded-xl bg-white border-4 border-transparent hover:border-indigo-500 overflow-hidden">
+              <div class="group block w-full aspect-w-1 aspect-h-1 rounded-3xl bg-white border-8 border-transparent hover:border-green-500 overflow-hidden">
+                
+                <% if asset.animation_url.present? %>
+                <video class="object-cover pointer-events-none" autoplay>
+                  <source src="<%=asset.animation_url%>" type="video/mp4">
+                </video>
+                <% else %>  
                 <img src="<%=asset.image_url%>" alt="" class="object-cover pointer-events-none">
-                <button type="button" class="absolute inset-0 focus:outline-none">
-                  <span class="sr-only">View details for <%=asset.name%></span>
-                </button>
+                <% end %>
+                
               </div>
               <% end %>
               <% end %>
