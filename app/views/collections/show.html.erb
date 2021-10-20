@@ -46,7 +46,7 @@
               <div class="group block w-full aspect-w-1 aspect-h-1 rounded-3xl bg-white border-8 border-transparent hover:border-green-500 overflow-hidden">
                 
                 <% if asset.animation_url.present? %>
-                <video class="object-cover pointer-events-none" autoplay>
+                <video class="object-cover pointer-events-none" autoplay loop>
                   <source src="<%=asset.animation_url%>" type="video/mp4">
                 </video>
                 <% else %>  
