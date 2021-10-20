@@ -1,3 +1,3 @@
 class Vote < ApplicationRecord
-  belongs_to :asset
+  #belongs_to :asset
 end

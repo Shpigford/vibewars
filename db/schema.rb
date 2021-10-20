@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_20_165602) do
+ActiveRecord::Schema.define(version: 2021_10_20_193259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,13 +57,12 @@ ActiveRecord::Schema.define(version: 2021_10_20_165602) do
   end
 
   create_table "votes", force: :cascade do |t|
-    t.bigint "asset_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "ip_address"
-    t.index ["asset_id"], name: "index_votes_on_asset_id"
+    t.bigint "winner_id"
+    t.bigint "loser_id"
   end
 
   add_foreign_key "assets", "collections"
-  add_foreign_key "votes", "assets"
 end

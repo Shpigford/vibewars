@@ -1,8 +1,8 @@
 class VotesController < ApplicationController
-  def show
-    asset = Asset.find(params[:id])
+  def battle
+    asset = Asset.find(params[:winner])
    
-    Vote.create(asset: asset, ip_address: request.remote_ip)
+    Vote.create(winner_id: params[:winner], loser_id: params[:loser], ip_address: request.remote_ip)
 
     redirect_to collection_path(asset.collection.address)
   end

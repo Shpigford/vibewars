@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   resources :votes
 
+  get '/votes/:winner/:loser', to: 'votes#battle', as: 'votes_battle'
+
   root "collections#index"
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
