@@ -1,0 +1,55 @@
+<header class="bg-white shadow">
+  <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+    <div class="md:flex md:items-center md:justify-between md:space-x-5">
+      <div class="flex items-start space-x-5">
+        <div class="flex-shrink-0">
+          <div class="relative">
+            <img class="h-16 w-16 rounded-full" src="<%= @collection.image_url %>" alt="">
+            <span class="absolute inset-0 shadow-inner rounded-full" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="pt-2.5">
+          <h1 class="text-4xl font-bold text-gray-900"><%= @collection.name %></h1>
+        </div>
+      </div>
+        <div class="flex my-2">
+          <a href="#"><i class="fa-brands fa-discord h-5 w-5 bg-gray-300 p-2 text-white rounded-lg mx-1 hover:bg-indigo-500"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter h-5 w-5 bg-gray-300 p-2 text-white rounded-lg mx-1 hover:bg-blue-500"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram h-5 w-5 bg-gray-300 p-2 text-white rounded-lg mx-1 hover:bg-pink-500"></i></a>
+          <a href="#"><i class="fa-duotone fa-browser h-5 w-5 bg-gray-300 p-2 text-white rounded-lg mx-1 hover:bg-green-500"></i></a>
+        </div>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div class="px-4 py-4 sm:px-0">
+      <div class="bg-white overflow-hidden shadow rounded-lg divide-y divide-gray-200">
+        <div class="px-4 py-5 sm:px-6">
+          <h2 class="text-xl leading-6 font-medium text-gray-900">Which one do you like more?</h2>
+        </div>
+        <div class="px-4 py-5 sm:p-6">
+          <ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-2 xl:gap-x-8">
+          <% @compare.each do |asset| %>
+            
+            <li class="relative">
+              <%= link_to vote_path(asset.id) do %>
+              <div class="group block w-full aspect-w-10 aspect-h-7 rounded-xl bg-white border-4 border-transparent hover:border-indigo-500 overflow-hidden">
+                <img src="<%=asset.image_url%>" alt="" class="object-cover pointer-events-none">
+                <button type="button" class="absolute inset-0 focus:outline-none">
+                  <span class="sr-only">View details for <%=asset.name%></span>
+                </button>
+              </div>
+              <% end %>
+              <% end %>
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+</main>

@@ -1,0 +1,33 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  collection: one
+  opensea_id: 1
+  token_id: MyString
+  num_sales: 1
+  background_color: MyString
+  image_url: MyText
+  image_original_url: MyText
+  image_thumbnail_url: MyText
+  animation_url: MyText
+  animation_original_url: MyText
+  name: MyString
+  description: MyText
+  external_link: MyString
+  opensea_link: MyString
+
+two:
+  collection: two
+  opensea_id: 1
+  token_id: MyString
+  num_sales: 1
+  background_color: MyString
+  image_url: MyText
+  image_original_url: MyText
+  image_thumbnail_url: MyText
+  animation_url: MyText
+  animation_original_url: MyText
+  name: MyString
+  description: MyText
+  external_link: MyString
+  opensea_link: MyString

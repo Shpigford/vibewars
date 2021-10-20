@@ -1,0 +1,35 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  banner_image_url: MyText
+  creation_date: 2021-10-20 09:52:14
+  description: MyText
+  discord_url: MyText
+  external_url: MyText
+  image_url: MyText
+  large_image_url: MyText
+  short_description: MyText
+  slug: MyString
+  twitter_username: MyString
+  instagram_username: MyString
+  address: MyString
+  schema_name: MyString
+  symbol: MyString
+
+two:
+  name: MyString
+  banner_image_url: MyText
+  creation_date: 2021-10-20 09:52:14
+  description: MyText
+  discord_url: MyText
+  external_url: MyText
+  image_url: MyText
+  large_image_url: MyText
+  short_description: MyText
+  slug: MyString
+  twitter_username: MyString
+  instagram_username: MyString
+  address: MyString
+  schema_name: MyString
+  symbol: MyString
