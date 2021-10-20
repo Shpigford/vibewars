@@ -13,10 +13,18 @@
         </div>
       </div>
         <div class="flex my-2">
-          <a href="#"><i class="fa-brands fa-discord h-5 w-5 bg-gray-300 p-2 text-white rounded-lg mx-1 hover:bg-indigo-500"></i></a>
-          <a href="#"><i class="fa-brands fa-twitter h-5 w-5 bg-gray-300 p-2 text-white rounded-lg mx-1 hover:bg-blue-500"></i></a>
-          <a href="#"><i class="fa-brands fa-instagram h-5 w-5 bg-gray-300 p-2 text-white rounded-lg mx-1 hover:bg-pink-500"></i></a>
-          <a href="#"><i class="fa-duotone fa-browser h-5 w-5 bg-gray-300 p-2 text-white rounded-lg mx-1 hover:bg-green-500"></i></a>
+          <% if @collection.discord_url.present? %>
+            <a href="<%=@collection.discord_url%>"><i class="fa-brands fa-discord h-5 w-5 bg-gray-300 p-2 text-white rounded-lg mx-1 hover:bg-indigo-500"></i></a>
+          <% end %>
+          <% if @collection.twitter_username.present? %>
+          <a href="https://twitter.com/<%=@collection.twitter_username%>"><i class="fa-brands fa-twitter h-5 w-5 bg-gray-300 p-2 text-white rounded-lg mx-1 hover:bg-blue-500"></i></a>
+          <% end %>
+          <% if @collection.instagram_username.present? %>
+          <a href="https://instagram.com/<%=@collection.instagram_username%>"><i class="fa-brands fa-instagram h-5 w-5 bg-gray-300 p-2 text-white rounded-lg mx-1 hover:bg-pink-500"></i></a>
+          <% end %>
+          <% if @collection.external_url.present? %>
+          <a href="<%=@collection.external_url%>"><i class="fa-duotone fa-browser h-5 w-5 bg-gray-300 p-2 text-white rounded-lg mx-1 hover:bg-green-500"></i></a>
+          <% end %>
         </div>
     </div>
   </div>
