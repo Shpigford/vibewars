@@ -2,10 +2,10 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
   get '/(*path)', to: redirect { |path_params, request|
-          "https://vibewars-production.onrender.com/#{path_params[:path]}"
+          "https://vibewars.lol/#{path_params[:path]}"
         },
   status: 301,
-  constraints: { domain: 'vibewars.lol' }
+  constraints: { domain: 'vibewars-production.onrender.com' }
 
 
   mount Sidekiq::Web => "/sidekiq"
