@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_20_195251) do
+ActiveRecord::Schema.define(version: 2021_10_21_002136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 2021_10_20_195251) do
     t.string "ip_address"
     t.bigint "winner_id"
     t.bigint "loser_id"
+    t.bigint "collection_id"
   end
 
   add_foreign_key "assets", "collections"

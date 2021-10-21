@@ -8,10 +8,11 @@
             <span class="absolute inset-0 shadow-inner rounded-full" aria-hidden="true"></span>
           </div>
         </div>
+
         <div class="pt-2.5">
           <h1 class="text-4xl font-bold text-gray-900"><%= @collection.name %></h1>
         </div>
-
+    
         <div class="py-3 pl-5">
           <nav class="flex space-x-4" aria-label="Tabs">
             <!-- Current: "bg-indigo-100 text-indigo-700", Default: "text-gray-500 hover:text-gray-700" -->
@@ -24,6 +25,7 @@
             </a>
           </nav>
         </div>
+        
         
       </div>
         <div class="flex my-2">
@@ -44,14 +46,47 @@
   </div>
 </header>
 <main>
-  <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+  <%= turbo_frame_tag "choose_image" do %>
+  <div class="max-w-7xl mx-auto pb-6 sm:px-6 lg:px-8">
+    <div>
+      <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
+        <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+          <dt class="text-sm font-medium text-gray-500 truncate">
+            Total Battles
+          </dt>
+          <dd class="mt-1 text-3xl font-semibold text-gray-900">
+            <%= @collection.votes.count %>
+          </dd>
+        </div>
+
+        <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+          <dt class="text-sm font-medium text-gray-500 truncate">
+            Total Items
+          </dt>
+          <dd class="mt-1 text-3xl font-semibold text-gray-900">
+            <%= @collection.assets.count %>
+          </dd>
+        </div>
+
+        <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+          <dt class="text-sm font-medium text-gray-500 truncate">
+            Something Else
+          </dt>
+          <dd class="mt-1 text-3xl font-semibold text-gray-900">
+            1,301%
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+
     <div class="px-4 py-4 sm:px-0">
 
-      <div class="bg-white overflow-hidden shadow rounded-lg divide-y divide-gray-200">
+      <div class="bg-white overflow-hidden shadow rounded-lg">
         <div class="px-4 pt-7 sm:px-6">
           <h2 class="text-4xl font-bold text-gray-900 text-center">Which one do you like more?</h2>
         </div>
-        <%= turbo_frame_tag "choose_image" do %>
+        
         <div class="px-4 p-0 sm:p-6">
           <ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-2 xl:gap-x-8">
             
@@ -90,7 +125,7 @@
 
           </ul>
         </div>
-    <% end %>
+    
 
       </div>
 
@@ -98,4 +133,5 @@
 
     </div>
   </div>
+  <% end %>
 </main>

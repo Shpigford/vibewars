@@ -13,7 +13,7 @@ class VotesController < ApplicationController
     winner.update_attribute(:elo_rating, winner_new_rating)
     loser.update_attribute(:elo_rating, loser_new_rating)
 
-    Vote.create(winner_id: winner.id, loser_id: loser.id, ip_address: request.remote_ip)
+    Vote.create(winner_id: winner.id, loser_id: loser.id, ip_address: request.remote_ip, collection: winner.collection)
 
     redirect_to collection_path(winner.collection.address)
   end
