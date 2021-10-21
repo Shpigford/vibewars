@@ -94,7 +94,7 @@
               <%= link_to votes_battle_path(@item_first.id, @item_last.id) do %>
               <div class="group block w-full aspect-w-1 aspect-h-1 rounded-3xl bg-white border-8 border-transparent hover:border-green-500 overflow-hidden">
                 
-                <% if @item_first.animation_url.present? %>
+                <% if !browser.device.mobile? and @item_first.animation_url.present? %>
                 <video class="object-cover pointer-events-none" autoplay loop muted>
                   <source src="<%=@item_first.animation_url%>" type="video/mp4">
                 </video>
@@ -110,7 +110,7 @@
               <%= link_to votes_battle_path(@item_last.id, @item_first.id) do %>
               <div class="group block w-full aspect-w-1 aspect-h-1 rounded-3xl bg-white border-8 border-transparent hover:border-green-500 overflow-hidden">
                 
-                <% if @item_last.animation_url.present? %>
+                <% if !browser.device.mobile? and @item_last.animation_url.present? %>
                 <video class="object-cover pointer-events-none" autoplay loop>
                   <source src="<%=@item_last.animation_url%>" type="video/mp4">
                 </video>

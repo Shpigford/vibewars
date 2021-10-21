@@ -64,6 +64,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.9.1)
       msgpack (~> 1.0)
+    browser (5.3.1)
     builder (3.2.4)
     capybara (3.35.3)
       addressable
@@ -206,6 +207,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap (>= 1.4.4)
+  browser
   capybara (>= 3.26)
   debug (>= 1.0.0)
   dotenv-rails

@@ -36,6 +36,7 @@ gem "bootsnap", ">= 1.4.4", require: false
 gem "httparty"
 gem 'dotenv-rails'
 gem "sidekiq"
+gem "browser"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
