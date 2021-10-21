@@ -90,5 +90,19 @@
         <%= yield %>
       </div>
       
+    <!-- This example requires Tailwind CSS v2.0+ -->
+    <footer class="bg-white">
+      <div class="max-w-7xl mx-auto py-12 px-4 text-center sm:px-6 lg:px-8">
+        <div class="mt-8 md:mt-0 md:order-1 text-center">
+          <p class="text-center text-base text-gray-400 text-lg">
+            &copy; <%= Date.today.year %> Sabotage Media, LLC. All rights reserved. <a href="https://github.com/Shpigford/vibewars" class="text-indigo-500 hover:text-indigo-700">Vibe Wars is open source!</a>
+          </p>
+          <p class="text-center text-base text-gray-400 mt-4">
+            <a href="https://forms.gle/HGHrMz5Xt51uRpq18" class="rounded-full py-2 px-4 text-sm bg-indigo-500 text-white hover:bg-indigo-700">Apply to have your project added &rarr;</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
   </body>
 </html>
