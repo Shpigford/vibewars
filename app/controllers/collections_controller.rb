@@ -8,6 +8,12 @@ class CollectionsController < ApplicationController
     @compare = @collection.assets.order(Arel.sql('RANDOM()')).limit(2)
     @item_first = @compare.first
     @item_last = @compare.last
+
+    votes = Vote.where(collection: @collection.id).pluck(:winner_id, :loser_id)
+    total_votes = votes.flatten(1).uniq.count
+
+    @percent_done = (total_votes.to_f / @collection.assets.count).to_f * 100
+
   end
 
   def ranking
