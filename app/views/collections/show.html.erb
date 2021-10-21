@@ -55,7 +55,7 @@
             Total Battles
           </dt>
           <dd class="mt-1 text-3xl font-semibold text-gray-900">
-            <%= @collection.votes.count %>
+            <%= number_with_delimiter(@collection.votes.count) %>
           </dd>
         </div>
 
@@ -64,13 +64,13 @@
             Total Items
           </dt>
           <dd class="mt-1 text-3xl font-semibold text-gray-900">
-            <%= @collection.assets.count %>
+            <%= number_with_delimiter(@collection.assets.count) %>
           </dd>
         </div>
 
         <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
           <dt class="text-sm font-medium text-gray-500 truncate">
-            Something Else
+            Probably Something
           </dt>
           <dd class="mt-1 text-3xl font-semibold text-gray-900">
             1,301%
