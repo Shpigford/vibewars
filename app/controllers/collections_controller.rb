@@ -5,9 +5,21 @@ class CollectionsController < ApplicationController
 
   def show
     @collection = Collection.where(address: params[:id]).first
-    @compare = @collection.assets.order(Arel.sql('RANDOM()')).limit(2)
-    @item_first = @compare.first
-    @item_last = @compare.last
+    
+
+    # No rating
+    no_rating = @collection.assets.where(elo_rating: 1600).order(Arel.sql('RANDOM()')).limit(1)
+
+    if no_rating
+      @item_first = no_rating.first
+
+      @compare = @collection.assets.where.not(id: @item_first.id).order(Arel.sql('RANDOM()')).limit(1)
+      @item_last = @compare.last
+    else 
+      @compare = @collection.assets.order(Arel.sql('RANDOM()')).limit(2)
+      @item_first = @compare.first
+      @item_last = @compare.last
+    end
 
     votes = Vote.where(collection: @collection.id).pluck(:winner_id, :loser_id)
     total_votes = votes.flatten(1).uniq.count
