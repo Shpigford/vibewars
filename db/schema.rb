@@ -67,6 +67,8 @@ ActiveRecord::Schema.define(version: 2021_10_22_194209) do
     t.bigint "winner_id"
     t.bigint "loser_id"
     t.bigint "collection_id"
+    t.index ["loser_id"], name: "index_votes_on_loser_id"
+    t.index ["winner_id"], name: "index_votes_on_winner_id"
   end
 
   add_foreign_key "assets", "collections"
