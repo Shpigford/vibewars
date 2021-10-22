@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_21_002136) do
+ActiveRecord::Schema.define(version: 2021_10_22_122948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2021_10_21_002136) do
     t.datetime "updated_at", precision: 6, null: false
     t.decimal "elo_rating", default: "1600.0"
     t.index ["collection_id"], name: "index_assets_on_collection_id"
+    t.index ["opensea_id"], name: "index_assets_on_opensea_id"
   end
 
   create_table "collections", force: :cascade do |t|
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(version: 2021_10_21_002136) do
     t.integer "count"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["address"], name: "index_collections_on_address"
   end
 
   create_table "votes", force: :cascade do |t|
