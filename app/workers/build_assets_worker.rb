@@ -8,8 +8,14 @@ class BuildAssetsWorker
     assets = HTTParty.get("https://api.opensea.io/api/v1/assets?asset_contract_addresses=#{address}&order_direction=asc&offset=#{offset}&limit=50").body
     all_assets = JSON.parse(assets)
 
+    if all_assets.blank? || all_assets['assets'].blank?
+      Rails.logger.warn "No assets for address=#{address} offset=#{offset} all_assets=#{all_assets.inspect}"
+      return
+    end
+
     all_assets['assets'].each do |asset|
       opensea_asset = Asset.where(opensea_id: asset['id']).first_or_initialize(opensea_id: asset['id'])
+      Rails.logger.debug "Updating opensea_asset_id=#{opensea_asset.opensea_id} new_record?=#{opensea_asset.new_record?}"
 
       if opensea_asset.new_record?
         opensea_asset.collection_id = collection.id
