@@ -5,3 +5,6 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+# Gawds
+BuildCollectionWorker.new.perform("0x3769c5700Da07Fe5b8eee86be97e061F961Ae340", 1)
