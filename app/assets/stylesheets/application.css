@@ -13,3 +13,13 @@
  *= require_tree .
  *= require_self
  */
+
+* {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.logo {
+  /*font-family: "Palanquin Dark", sans-serif;*/
+  font-weight: 700;
+  text-transform: lowercase;
+}
