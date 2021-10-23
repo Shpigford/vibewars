@@ -14,6 +14,10 @@ class CollectionsController < ApplicationController
 
     @percent_done = (total_votes.to_f / @collection.assets.count).to_f * 100
 
+    respond_to do |format|
+      format.html
+      format.json { render json: { collection: @collection, item_first: @item_first, item_last: @item_last, total_votes: total_votes, percent_done: @percent_done } }
+    end
   end
 
   def ranking
@@ -25,5 +29,10 @@ class CollectionsController < ApplicationController
     total_votes = votes.flatten(1).uniq.count
 
     @percent_done = (total_votes.to_f / @collection.assets.count).to_f * 100
+
+    respond_to do |format|
+      format.html
+      format.json { render json: { collection: @collection, assets: @assets, total_votes: total_votes, percent_done: @percent_done } }
+    end
   end
 end
