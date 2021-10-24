@@ -107,7 +107,7 @@
                   <source src="<%=@item_first.animation_url%>" type="video/mp4">
                 </video>
                 <% else %>  
-                <img src="<%=@item_first.image_url%>" alt="" class="object-cover pointer-events-none bg-gray-100">
+                <img src="<%=@item_first.image_url%>" alt="" class="object-cover pointer-events-none <%= @item_first.background_color.present? ? "##{@item_first.background_color}" : 'bg-gray-100' %>">
                 <% end %>
                 
               </div>
@@ -124,7 +124,7 @@
                   <source src="<%=@item_last.animation_url%>" type="video/mp4">
                 </video>
                 <% else %>  
-                <img src="<%=@item_last.image_url%>" alt="" class="object-cover pointer-events-none bg-gray-100">
+                <img src="<%=@item_last.image_url%>" alt="" class="object-cover pointer-events-none  <%= @item_first.background_color.present? ? "##{@item_first.background_color}" : 'bg-gray-100' %>">
                 <% end %>
                 
               </div>
