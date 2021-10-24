@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html class="h-full bg-gray-100">
   <head>
-    <title>Vibe Wars</title>
+    <title><%= content_for?(:title) ? ("#{yield(:title)} - Vibe Wars").html_safe : "Vibe Wars: NFT Visual Battles" %></title>
+    <meta name="title" content="Vibe Wars">
+    <meta name="description" content="<%= content_for?(:description) ? (yield(:description)) : "Find out which NFTs are the most visually desirable! In a set of thousands of NFTs, which ones do people actually like the look of the most?" %>">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <script src="https://kit.fontawesome.com/58f3deb2bd.js" crossorigin="anonymous"></script>
