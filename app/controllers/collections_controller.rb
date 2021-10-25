@@ -21,7 +21,7 @@ class CollectionsController < ApplicationController
       @compare = Asset.from('"assets" TABLESAMPLE SYSTEM(10)').where(collection_id: @collection.id).where.not(id: @item_first.id).limit(1)
       @item_last = @compare.last
     else 
-      @compare = Asset.from('"assets" TABLESAMPLE SYSTEM(10)').where(collection_id: @collection.id).limit(2)
+      @compare = Asset.from('"assets" TABLESAMPLE SYSTEM(20)').where(collection_id: @collection.id).limit(2)
       @item_first = @compare.first
       @item_last = @compare.last
     end
