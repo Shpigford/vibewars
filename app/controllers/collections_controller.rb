@@ -14,11 +14,12 @@ class CollectionsController < ApplicationController
     end
 
     # No rating
-    #no_rating = @collection.assets.where(votes_count: 0).order(Arel.sql('RANDOM()')).limit(1)
-    no_rating = Asset.from('"assets" TABLESAMPLE BERNOULLI(' + percent_to_call.to_s + ')').where(collection_id: @collection.id, votes_count: 0).limit(1)
+    no_rating = @collection.assets.where(votes_count: 0).count
+    #no_rating = Asset.from('"assets" TABLESAMPLE BERNOULLI(' + percent_to_call.to_s + ')').where(collection_id: @collection.id, votes_count: 0).limit(1)
 
-    if no_rating.present?
-      @item_first = no_rating.first
+    if no_rating > 0
+      no_rating_item = @collection.assets.where(votes_count: 0).limit(1)
+      @item_first = no_rating_item.first
 
       @compare = Asset.from('"assets" TABLESAMPLE BERNOULLI(' + percent_to_call.to_s + ')').where(collection_id: @collection.id).where.not(id: @item_first.id).limit(1)
       @item_last = @compare.last
