@@ -1,4 +1,6 @@
 <% title "#{@collection.name} NFT Visual Battle" %>
+<% meta_image(@collection.image_url.sub('s120', 's600')) if @collection.image_url.present? %>
+
 <header class="bg-white shadow">
   <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
     <div class="md:flex md:items-center md:justify-between md:space-x-5">
