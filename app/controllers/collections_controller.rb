@@ -12,15 +12,16 @@ class CollectionsController < ApplicationController
     end
 
     # No rating
-    no_rating = @collection.assets.where(votes_count: 0).order(Arel.sql('RANDOM()')).limit(1)
+    #no_rating = @collection.assets.where(votes_count: 0).order(Arel.sql('RANDOM()')).limit(1)
+    no_rating = Asset.from('"assets" TABLESAMPLE SYSTEM(10)').where(collection_id: @collection.id, votes_count: 0).limit(1)
 
     if no_rating.present?
       @item_first = no_rating.first
 
-      @compare = @collection.assets.where.not(id: @item_first.id).order(Arel.sql('RANDOM()')).limit(1)
+      @compare = Asset.from('"assets" TABLESAMPLE SYSTEM(10)').where(collection_id: @collection.id).where.not(id: @item_first.id).limit(1)
       @item_last = @compare.last
     else 
-      @compare = @collection.assets.order(Arel.sql('RANDOM()')).limit(2)
+      @compare = Asset.from('"assets" TABLESAMPLE SYSTEM(10)').where(collection_id: @collection.id).limit(2)
       @item_first = @compare.first
       @item_last = @compare.last
     end
