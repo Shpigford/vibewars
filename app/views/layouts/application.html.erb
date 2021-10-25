@@ -58,7 +58,7 @@
                 
                   <div class="py-1" role="none">
                     <% @all_collections.each do |collection| %>
-                    <a href="<%=collection_path(collection.address)%>" class="text-gray-700 group flex items-center px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">
+                    <a href="<%=collection_path(collection.slug)%>" class="text-gray-700 group flex items-center px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">
                       <div class="flex items-center">
                         <div class="flex-shrink-0 h-5 w-5">
                           <img class="h-5 w-5 rounded-md" src="<%=collection.image_url%>" alt="">

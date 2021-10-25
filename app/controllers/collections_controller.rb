@@ -4,8 +4,12 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    @collection = Collection.where(address: params[:id]).first
-    
+    if /\A0x[a-fA-F0-9]{40}\z/i.match(params[:id])
+      @collection = Collection.where(address: params[:id]).first
+      redirect_to collection_path(@collection.slug)
+    else
+      @collection = Collection.where(slug: params[:id]).first
+    end
 
     # No rating
     no_rating = @collection.assets.where(votes_count: 0).order(Arel.sql('RANDOM()')).limit(1)
@@ -29,7 +33,13 @@ class CollectionsController < ApplicationController
   end
 
   def ranking
-    @collection = Collection.where(address: params[:id]).first
+    if /\A0x[a-fA-F0-9]{40}\z/i.match(params[:id])
+      @collection = Collection.where(address: params[:id]).first
+      redirect_to ranking_collection_path(@collection.slug)
+    else
+      @collection = Collection.where(slug: params[:id]).first
+    end
+
     @assets = @collection.assets.order(elo_rating: :desc).limit(100)
 
     # TODO: Duplicate of the method above...need to abstract it out
