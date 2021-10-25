@@ -8,7 +8,7 @@ class CollectionsController < ApplicationController
     
 
     # No rating
-    no_rating = @collection.assets.where(elo_rating: 1600).order(Arel.sql('RANDOM()')).limit(1)
+    no_rating = @collection.assets.where(votes_count: 0).order(Arel.sql('RANDOM()')).limit(1)
 
     if no_rating.present?
       @item_first = no_rating.first
