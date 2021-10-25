@@ -9,24 +9,26 @@ class CollectionsController < ApplicationController
       redirect_to collection_path(@collection.slug)
     else
       @collection = Collection.where(slug: params[:id]).first
+      total_rows = @collection.count
+      percent_to_call = 100/total_rows.to_f
     end
 
     # No rating
     #no_rating = @collection.assets.where(votes_count: 0).order(Arel.sql('RANDOM()')).limit(1)
-    no_rating = Asset.from('"assets" TABLESAMPLE SYSTEM(10)').where(collection_id: @collection.id, votes_count: 0).limit(1)
+    no_rating = Asset.from('"assets" TABLESAMPLE BERNOULLI(' + percent_to_call.to_s + ')').where(collection_id: @collection.id, votes_count: 0).limit(1)
 
     if no_rating.present?
       @item_first = no_rating.first
 
-      @compare = Asset.from('"assets" TABLESAMPLE SYSTEM(10)').where(collection_id: @collection.id).where.not(id: @item_first.id).limit(1)
+      @compare = Asset.from('"assets" TABLESAMPLE BERNOULLI(' + percent_to_call.to_s + ')').where(collection_id: @collection.id).where.not(id: @item_first.id).limit(1)
       @item_last = @compare.last
     else 
-      @compare = Asset.from('"assets" TABLESAMPLE SYSTEM(20)').where(collection_id: @collection.id).limit(2)
+      @compare = Asset.from('"assets" TABLESAMPLE BERNOULLI(' + (percent_to_call * 2).to_s + ')').where(collection_id: @collection.id).limit(2)
       @item_first = @compare.first
       @item_last = @compare.last
     end
 
-    if @item_first == @item_last
+    if @item_first == @item_last or @item_first.blank? or @item_last.blank? 
       redirect_to collection_path(@collection.slug)
     end
 
