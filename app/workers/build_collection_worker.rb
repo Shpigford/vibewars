@@ -2,9 +2,9 @@ class BuildCollectionWorker
   include Sidekiq::Worker
 
   # We need token_id due to OpenSea API limitiations
-  def perform(collection_address, token_id)
+  def perform(collection_address, slug, token_id)
     # Build collection
-    collection = Collection.where(address: collection_address).first_or_initialize(address: collection_address)
+    collection = Collection.where(address: collection_address, slug: slug).first_or_initialize(address: collection_address, slug: slug)
 
     collection.save if collection.new_record?
 
@@ -26,13 +26,12 @@ class BuildCollectionWorker
       instagram_username: collection_data['instagram_username'],
       schema_name: asset_collection_data['asset_contract']['schema_name'],
       symbol: asset_collection_data['asset_contract']['symbol'],
-      slug: collection_data['slug'],
       count: collection_data['stats']['count']
     )
 
     # Kickoff asset workers
     (0..collection_data['stats']['count'].to_i).step(50) do |n|
-      BuildAssetsWorker.perform_async(collection_address, n)
+      BuildAssetsWorker.perform_async(collection_address, slug, n)
     end
   end
 end

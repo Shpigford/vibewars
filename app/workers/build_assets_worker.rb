@@ -1,8 +1,8 @@
 class BuildAssetsWorker
   include Sidekiq::Worker
 
-  def perform(address, offset)
-    collection = Collection.where(address: address).first
+  def perform(address, slug, offset)
+    collection = Collection.where(address: address, slug: slug).first
     # https://api.opensea.io/api/v1/assets?asset_contract_addresses=0x3769c5700da07fe5b8eee86be97e061f961ae340&order_direction=asc&offset=0&limit=50
 
     assets = HTTParty.get("https://api.opensea.io/api/v1/assets?asset_contract_addresses=#{address}&order_direction=asc&offset=#{offset}&limit=50&collection=#{collection.slug}").body
