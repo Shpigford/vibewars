@@ -25,6 +25,10 @@ class CollectionsController < ApplicationController
       @item_last = @compare.last
     end
 
+    if @item_first == @item_last
+      redirect_to collection_path(@collection.slug)
+    end
+
     votes = Vote.where(collection: @collection.id).pluck(:winner_id, :loser_id)
     total_votes = votes.flatten(1).uniq.count
 
