@@ -30,6 +30,15 @@ class BuildAssetsWorker
         external_link: asset['external_link'],
         opensea_link: asset['permalink']
       )
+
+      if asset['sell_orders'].present?
+        order = asset['sell_orders'].first
+        opensea_asset.update(
+          current_sale_price: order['base_price'],
+          current_sale_token: order['payment_token_contract']['symbol'],
+          current_sale_token_decimals: order['payment_token_contract']['decimals']
+        )
+      end
     end
   end
 end

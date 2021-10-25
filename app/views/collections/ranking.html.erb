@@ -83,6 +83,9 @@
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Asset
                     </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Current Price
+                    </th>
                     <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Score
                     </th>
@@ -102,10 +105,18 @@
                             <%=asset.name%>
                           </div>
                           <div class="text-sm">
-                            <a href="<%=asset.opensea_link%>">OpenSea</a> - <a href="<%=asset.external_link%>">Project</a>
+                            <a href="<%=asset.opensea_link %>" target="_blank">OpenSea</a> 
+                            - <a href="<%=asset.external_link %>" target="_blank">Project</a>
                           </div>
                         </div>
                       </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-left text-sm font-medium">
+                    <% if asset.current_sale_price.present? %>
+                    <a href="<%=asset.opensea_link %>" class="">
+                      <%= asset.current_sale_price.to_f / (10**asset.current_sale_token_decimals) %> <%=asset.current_sale_token %> <i class="fa-duotone fa-sack-dollar text-green-500"></i>
+                    </a>
+                    <% end %>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <span class="py-3 px-6 inline-flex text-lg leading-5 font-semibold rounded-full bg-green-100 text-green-800">
