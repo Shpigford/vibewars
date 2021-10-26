@@ -24,7 +24,7 @@ class VotesController < ApplicationController
       lose_scoring_point = 0
     
       winner_new_rating = winner.elo_rating.to_f + (20 * (win_scoring_point - win_probability))
-      loser_new_rating = winner.elo_rating.to_f + (20 * (lose_scoring_point - win_probability))
+      loser_new_rating = loser.elo_rating.to_f + (20 * (lose_scoring_point - win_probability))
 
       winner.update_attribute(:elo_rating, winner_new_rating)
       loser.update_attribute(:elo_rating, loser_new_rating)
