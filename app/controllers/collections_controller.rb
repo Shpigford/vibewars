@@ -13,21 +13,9 @@ class CollectionsController < ApplicationController
       percent_to_call = 100/total_rows.to_f
     end
 
-    # No rating
-    no_rating = @collection.assets.where(votes_count: 0).count
-    #no_rating = Asset.from('"assets" TABLESAMPLE BERNOULLI(' + percent_to_call.to_s + ')').where(collection_id: @collection.id, votes_count: 0).limit(1)
-
-    if no_rating > 0
-      no_rating_item = @collection.assets.where(votes_count: 0).limit(1)
-      @item_first = no_rating_item.first
-
-      @compare = Asset.from('"assets" TABLESAMPLE BERNOULLI(' + percent_to_call.to_s + ')').where(collection_id: @collection.id).where.not(id: @item_first.id).limit(1)
-      @item_last = @compare.last
-    else 
-      @compare = Asset.from('"assets" TABLESAMPLE BERNOULLI(' + (percent_to_call * 2).to_s + ')').where(collection_id: @collection.id).limit(2)
-      @item_first = @compare.first
-      @item_last = @compare.last
-    end
+    compare = @collection.assets.order(votes_count: :asc).limit(6)
+    @item_first = compare.sample
+    @item_last = compare.sample
 
     if @item_first == @item_last or @item_first.blank? or @item_last.blank? 
       redirect_to collection_path(@collection.slug)
