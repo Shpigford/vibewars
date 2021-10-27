@@ -13,7 +13,7 @@ class CollectionsController < ApplicationController
       percent_to_call = 100/total_rows.to_f
     end
 
-    compare = @collection.assets.order(votes_count: :asc).limit(6)
+    compare = @collection.assets.order(votes_count: :asc).limit(20)
     @item_first = compare.sample
     @item_last = compare.sample
 
