@@ -1,0 +1,144 @@
+<% title "#{@asset.name} - #{@asset.collection.name} NFT Visual Battle" %>
+<% meta_image(@asset.image_url.sub('s120', 's600')) if @collection.image_url.present? %>
+
+<header class="bg-white shadow">
+  <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+    <div class="md:flex md:items-center md:justify-between md:space-x-5">
+      <div class="flex items-start space-x-5">
+        <div class="flex-shrink-0">
+          <div class="relative">
+            <img class="h-16 w-16 rounded-full" src="<%= @collection.image_url %>" alt="">
+            <span class="absolute inset-0 shadow-inner rounded-full" aria-hidden="true"></span>
+          </div>
+        </div>
+
+        <div class="pt-2.5">
+          <h1 class="text-4xl font-bold text-gray-900"><%= @collection.name %></h1>
+        </div>
+    
+        <div class="py-3 pl-5">
+          <nav class="flex space-x-4" aria-label="Tabs">
+            <a href="<%= collection_path(@collection.slug) %>" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">
+              Battle
+            </a>
+
+            <a href="<%= ranking_collection_path(@collection.slug) %>" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">
+              Rankings
+            </a>
+          </nav>
+        </div>
+        
+        
+      </div>
+        <div class="flex my-2">
+          <% if @collection.discord_url.present? %>
+            <a href="<%=@collection.discord_url%>"><i class="fa-brands fa-discord h-5 w-5 bg-gray-300 p-2 text-white rounded-lg mx-1 hover:bg-indigo-500"></i></a>
+          <% end %>
+          <% if @collection.twitter_username.present? %>
+          <a href="https://twitter.com/<%=@collection.twitter_username%>"><i class="fa-brands fa-twitter h-5 w-5 bg-gray-300 p-2 text-white rounded-lg mx-1 hover:bg-blue-500"></i></a>
+          <% end %>
+          <% if @collection.instagram_username.present? %>
+          <a href="https://instagram.com/<%=@collection.instagram_username%>"><i class="fa-brands fa-instagram h-5 w-5 bg-gray-300 p-2 text-white rounded-lg mx-1 hover:bg-pink-500"></i></a>
+          <% end %>
+          <% if @collection.external_url.present? %>
+          <a href="<%=@collection.external_url%>"><i class="fa-duotone fa-browser h-5 w-5 bg-gray-300 p-2 text-white rounded-lg mx-1 hover:bg-green-500"></i></a>
+          <% end %>
+        </div>
+    </div>
+  </div>
+</header>
+<main class="mt-8 pb-8">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+    <!-- Main 3 column grid -->
+    <div class="grid grid-cols-1 gap-4 items-start lg:grid-cols-5 lg:gap-8">
+
+      <!-- Left column -->
+      <div class="grid grid-cols-1 gap-4 lg:col-span-3">
+        <div class="bg-white overflow-hidden shadow rounded-lg divide-y divide-gray-200">
+          <div class="px-4 py-5 sm:px-6">
+            <div class="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-nowrap">
+              <div class="ml-4 mt-2">
+                <h1 class="text-3xl font-bold"><%=@asset.name%></h1>
+              </div>
+              <div class="ml-4 mt-2 flex-shrink-0">
+                <div class="text-sm">
+                  <a href="<%=@asset.opensea_link %>" target="_blank" class="hover:text-indigo-500">OpenSea</a> 
+                  <% if @asset.external_link.present? %>
+                  - <a href="<%=@asset.external_link %>" target="_blank" class="hover:text-indigo-500">Project</a>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+            
+          </div>
+          <div class="px-4 py-5 sm:p-6">
+            <div class="group block w-full aspect-w-1 aspect-h-1 rounded-2xl overflow-hidden">
+              <% if !browser.device.mobile? and @asset.animation_url.present? %>
+              <video class="object-cover pointer-events-none" autoplay loop muted style="background:url('<%=@asset.image_url%>') 50% 50%;background-size: cover;">
+                <source src="<%=@asset.animation_url%>" type="video/mp4">
+              </video>
+              <% else %>  
+              <img src="<%=@asset.image_url%>" alt="" class="object-cover pointer-events-none <%= 'bg-gray-100' if @asset.background_color.blank? %>" <%= %Q[style=background-color:##{@asset.background_color}] if @asset.background_color.present? %>>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <div class="grid grid-cols-1 gap-4 lg:col-span-2">
+
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          
+          <div class="relative bg-white overflow-hidden shadow rounded-lg flex">
+            <div class="flex-shrink-0 flex items-center justify-center w-16 bg-green-500 text-white text-4xl font-bold rounded-l-md">
+              S
+            </div>
+            <div class="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate">
+              <div class="flex-1 px-4 py-2 text-sm truncate">
+                <span class="text-gray-900 font-medium hover:text-gray-600">Score</span>
+                <p class="text-2xl font-bold text-black"><%=@asset.elo_rating.round %></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative bg-white overflow-hidden shadow rounded-lg flex">
+            <div class="flex-shrink-0 flex items-center justify-center w-16 bg-indigo-500 text-white text-4xl font-bold rounded-l-md">
+              V
+            </div>
+            <div class="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate">
+              <div class="flex-1 px-4 py-2 text-sm truncate">
+                <span class="text-gray-900 font-medium hover:text-gray-600">Votes</span>
+                <p class="text-2xl font-bold text-black"><%=@asset.votes_count %></p>
+              </div>
+            </div>
+          </div>
+
+          <% if @asset.current_sale_price.present? %>
+          <div class="relative bg-white overflow-hidden shadow rounded-lg flex">
+            <div class="flex-shrink-0 flex items-center justify-center w-16 bg-blue-500 text-white text-4xl font-bold rounded-l-md">
+              P
+            </div>
+            <div class="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate">
+              <div class="flex-1 px-4 py-2 text-sm truncate">
+                <span class="text-gray-900 font-medium hover:text-gray-600">Price</span>
+                <p class="text-2xl font-bold text-black">
+                
+                <a href="<%=@asset.opensea_link %>" target="_blank">
+                  <%= @asset.current_sale_price.to_f / (10**@asset.current_sale_token_decimals) %> <%=@asset.current_sale_token %>
+                </a>
+                
+                </p>
+              </div>
+            </div>
+          </div>
+          <% end %>
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>

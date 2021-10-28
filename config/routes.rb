@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => "/sidekiq"
 
   resources :collections do
+    resources :assets
     member do
       get 'ranking'
     end
