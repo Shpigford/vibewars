@@ -62,12 +62,14 @@
         </div>
         
         <div class="px-4 p-0 sm:p-6">
-          <ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-2 xl:gap-x-8">
+          <ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-2 xl:gap-x-8" data-controller="vote">
             
             <li class="relative">
-              <%= link_to votes_battle_path(@item_first.id, @item_last.id) do %>
+              <%= link_to votes_battle_path(@item_first.id, @item_last.id), 'data-action': 'click->vote#toggle' do %>
               <div class="group block w-full aspect-w-1 aspect-h-1 rounded-3xl bg-white border-8 border-transparent hover:border-green-500 overflow-hidden">
-                
+
+                <div data-vote-target="element" class="voted opacity-0 bg-black bg-opacity-70 flex justify-center items-center transition-all duration-100"><i class="fa-duotone fa-circle-check text-9xl text-green-500"></i></div>
+
                 <% if !browser.device.mobile? and @item_first.animation_url.present? %>
                 <video class="object-cover pointer-events-none" autoplay loop muted style="background:url('<%=@item_first.image_url%>') 50% 50%;background-size: cover;">
                   <source src="<%=@item_first.animation_url%>" type="video/mp4">
@@ -82,8 +84,10 @@
             </li>
 
             <li class="relative">
-              <%= link_to votes_battle_path(@item_last.id, @item_first.id) do %>
+              <%= link_to votes_battle_path(@item_last.id, @item_first.id), 'data-action': 'click->vote#toggle' do %>
               <div class="group block w-full aspect-w-1 aspect-h-1 rounded-3xl bg-white border-8 border-transparent hover:border-green-500 overflow-hidden">
+
+                <div data-vote-target="element" class="voted opacity-0 bg-black bg-opacity-70 flex justify-center items-center transition-all duration-100"><i class="fa-duotone fa-circle-check text-9xl text-green-500"></i></div>
                 
                 <% if !browser.device.mobile? and @item_last.animation_url.present? %>
                 <video class="object-cover pointer-events-none" autoplay loop>

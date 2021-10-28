@@ -19,7 +19,10 @@
 }
 
 .logo {
-  /*font-family: "Palanquin Dark", sans-serif;*/
   font-weight: 700;
   text-transform: lowercase;
+}
+
+.voted {
+  z-index: 1000;
 }
