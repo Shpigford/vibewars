@@ -34,9 +34,14 @@
       </dd>
     </div>
 
-    <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
-      <dt class="text-sm font-medium text-gray-500 truncate">
-        Ranking Confidence
+    <div class="px-4 py-5 bg-white shadow rounded-lg sm:p-6">
+      <dt class="text-sm font-medium text-gray-500">
+        Ranking Confidence 
+        
+        <span class='has-tooltip'>
+          <span class='tooltip rounded shadow-lg py-2 px-4 bg-indigo-500 text-white -mt-16 text-xs max-w-xxs'>Progress towards all items having at least 30 votes to be statistically relevant.</span>
+          <i class="fa-duotone fa-circle-info"></i>
+        </span>
       </dt>
       <dd class="mt-1 text-3xl font-semibold text-gray-900">
         <%= @ranking_confidence.round(3) %>%
