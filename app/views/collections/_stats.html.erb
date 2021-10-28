@@ -1,0 +1,53 @@
+<div>
+  <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-4">
+    <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+      <dt class="text-sm font-medium text-gray-500 truncate">
+        Total Battles
+      </dt>
+      <dd class="mt-1 text-3xl font-semibold text-gray-900">
+        <%= number_with_delimiter(@collection.votes.count) %>
+      </dd>
+    </div>
+
+    <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+      <dt class="text-sm font-medium text-gray-500 truncate">
+        Total Items
+      </dt>
+      <dd class="mt-1 text-3xl font-semibold text-gray-900">
+        <%= number_with_delimiter(@collection.assets.count) %>
+      </dd>
+    </div>
+
+    <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+      <dt class="text-sm font-medium text-gray-500 truncate">
+        % of Collection Battled
+      </dt>
+      <dd class="mt-1 text-3xl font-semibold text-gray-900">
+        <%= @percent_done.round(2) %>%
+        <div class="relative pt-1">
+          <div class="overflow-hidden h-2 text-xs flex rounded bg-purple-200">
+              <div style="width:<%= @percent_done.round(2) %>%"
+                  class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-indigo-500">
+              </div>
+          </div>
+        </div>
+      </dd>
+    </div>
+
+    <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+      <dt class="text-sm font-medium text-gray-500 truncate">
+        Ranking Confidence
+      </dt>
+      <dd class="mt-1 text-3xl font-semibold text-gray-900">
+        <%= @ranking_confidence.round(3) %>%
+        <div class="relative pt-1">
+          <div class="overflow-hidden h-2 text-xs flex rounded bg-purple-200">
+              <div style="width:<%= @ranking_confidence %>%"
+                  class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-indigo-500">
+              </div>
+          </div>
+        </div>
+      </dd>
+    </div>
+  </dl>
+</div>

@@ -23,9 +23,9 @@ class CollectionsController < ApplicationController
 
     votes = Vote.where(collection: @collection.id).pluck(:winner_id, :loser_id)
     total_votes = votes.flatten(1).uniq.count
-
     @percent_done = (total_votes.to_f / @collection.assets.count).to_f * 100
 
+    @ranking_confidence = (@collection.assets.average(:votes_count) / 30) * 100
   end
 
   def ranking
@@ -43,5 +43,7 @@ class CollectionsController < ApplicationController
     total_votes = votes.flatten(1).uniq.count
 
     @percent_done = (total_votes.to_f / @collection.assets.count).to_f * 100
+
+    @ranking_confidence = (@collection.assets.average(:votes_count) / 30) * 100
   end
 end

@@ -43,10 +43,11 @@
   </div>
 </header>
 <main>
-  <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto pb-6 sm:px-6 lg:px-8">
+    <%= render "stats" %>
 
-    <% if @percent_done < 100 %>
-    <div class="rounded-md bg-yellow-50 p-4">
+    <% if @ranking_confidence < 100 %>
+    <div class="rounded-md bg-yellow-50 p-4 mt-4">
       <div class="flex">
         <div class="flex-shrink-0">
           <!-- Heroicon name: solid/exclamation -->
@@ -60,7 +61,7 @@
           </h3>
           <div class="mt-2 text-sm text-yellow-700">
             <p>
-              This project is still in the initial ranking phase. Not all items have been voted on yet and as such, the scores and ranking will still change.
+              This project is still in the initial ranking phase. Until Ranking Confidence reaches 100%, the rank of any given item may change quite a bit.
             </p>
           </div>
         </div>
