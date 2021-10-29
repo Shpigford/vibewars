@@ -38,7 +38,7 @@ class CollectionsController < ApplicationController
       @collection = Collection.where(slug: params[:id]).first
     end
 
-    @assets = @collection.assets.where('rank > 0').order(rank: :asc).limit(100)
+    @assets = @collection.assets.where('rank > 0').order(rank: :asc).page params[:page]
 
     # TODO: Duplicate of the method above...need to abstract it out
     votes = Vote.where(collection: @collection.id).pluck(:winner_id, :loser_id)

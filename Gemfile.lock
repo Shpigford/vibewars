@@ -1,3 +1,20 @@
+GIT
+  remote: git://github.com/kaminari/kaminari.git
+  revision: 73b93405b95615b5ad3f53c3dffe419a59890cad
+  specs:
+    kaminari (1.2.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.1)
+      kaminari-activerecord (= 1.2.1)
+      kaminari-core (= 1.2.1)
+    kaminari-actionview (1.2.1)
+      actionview
+      kaminari-core (= 1.2.1)
+    kaminari-activerecord (1.2.1)
+      activerecord
+      kaminari-core (= 1.2.1)
+    kaminari-core (1.2.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -224,6 +241,7 @@ DEPENDENCIES
   httparty
   importmap-rails (>= 0.3.4)
   jbuilder (~> 2.7)
+  kaminari!
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.0.alpha2)
