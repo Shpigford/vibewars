@@ -3,6 +3,7 @@ namespace :maintenance do
   task :update_collections => :environment do
     Collection.all.each do |collection|
       BuildCollectionWorker.perform_async(collection.address, collection.slug, collection.assets.first.token_id)
+      UpdateRankWorker.perform_async(collection.id)
     end
   end
 
