@@ -80,7 +80,7 @@
                 
               </div>
               <% end %>
-              <p class="pt-3 text-sm text-center text-gray-500 font-medium hover:text-indigo-500"><a href="<%= @item_first.opensea_link %>" target="_blank"><%= @item_first.name %> <i class="fa-duotone fa-square-up-right"></i></a></p>
+              <p class="pt-3 text-sm text-center text-gray-500 font-medium hover:text-indigo-500"><a href="<%= collection_asset_url(@item_first.collection.slug, @item_first.token_id) %>" data-turbo-frame="_top"><%= @item_first.name %> <i class="fa-duotone fa-square-up-right"></i></a></p>
             </li>
 
             <li class="relative item_last">
@@ -99,9 +99,8 @@
                 
               </div>
               <% end %>
-              <p class="pt-3 text-sm text-center text-gray-500 font-medium hover:text-indigo-500"><a href="<%= @item_last.opensea_link %>" target="_blank"><%= @item_last.name %> <i class="fa-duotone fa-square-up-right"></i></a></p>
+              <p class="pt-3 text-sm text-center text-gray-500 font-medium hover:text-indigo-500"><a href="<%= collection_asset_url(@item_last.collection.slug, @item_last.token_id) %>" data-turbo-frame="_top"><%= @item_last.name %> <i class="fa-duotone fa-square-up-right"></i></a></p>
             </li>
-
 
           </ul>
         </div>
