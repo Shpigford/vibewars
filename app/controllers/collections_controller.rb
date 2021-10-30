@@ -49,4 +49,10 @@ class CollectionsController < ApplicationController
     raw_confidence = (@collection.assets.average(:votes_count) / 30) * 100
     @ranking_confidence = raw_confidence >= 100 ? 100.to_i : raw_confidence
   end
+
+  def leaderboard
+    @collection = Collection.where(slug: params[:id]).first
+
+    @leaders = @collection.votes.where.not(wallet_id: nil).group(:wallet_id).order(count_all: :desc).count
+  end
 end
