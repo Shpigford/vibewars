@@ -39,6 +39,16 @@ class BuildAssetsWorker
           current_sale_token_decimals: order['payment_token_contract']['decimals']
         )
       end
+
+      if asset['owner'].present?
+        wallet = Wallet.where('lower(address) = ?', asset['owner']['address'].downcase).first
+        if wallet.present?
+          wallet.update(
+            opensea_username: asset['owner']['user']['username'],
+            opensea_profile_img_url: asset['owner']['profile_img_url']
+          )
+        end
+      end
     end
   end
 end
