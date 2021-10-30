@@ -21,6 +21,9 @@ Rails.application.routes.draw do
 
   get '/votes/:winner/:loser', to: 'votes#battle', as: 'votes_battle'
 
+  get '/search', to: 'pages#search', as: 'search'
+  get '/leaderboard', to: 'pages#leaderboard', as: 'leaderboard'
+
   root "collections#index"
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
