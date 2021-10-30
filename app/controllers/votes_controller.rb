@@ -29,7 +29,14 @@ class VotesController < ApplicationController
       winner.update_attribute(:elo_rating, winner_new_rating)
       loser.update_attribute(:elo_rating, loser_new_rating)
 
-      Vote.create(winner_id: winner.id, loser_id: loser.id, ip_address: request.remote_ip, collection: winner.collection)
+      if cookies[:wallet].present? and cookies[:wallet] != 'undefined'
+        wallet = Wallet.find_or_create_by(address: cookies[:wallet])
+        wallet = wallet.id
+      else
+        wallet = nil
+      end
+
+      Vote.create(winner_id: winner.id, loser_id: loser.id, ip_address: request.remote_ip, collection: winner.collection, wallet_id: wallet)
       
       winner.increment!(:votes_count)
       loser.increment!(:votes_count)

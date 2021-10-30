@@ -40,7 +40,6 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <script src="https://kit.fontawesome.com/58f3deb2bd.js" crossorigin="anonymous"></script>
-    <script src="//unpkg.com/alpinejs" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -54,10 +53,26 @@
 
   <body class="h-full">
       <div class="min-h-full">
+        <!--
+          This example requires Tailwind CSS v2.0+ 
+  
+          This example requires some changes to your config:
+  
+          ```
+          // tailwind.config.js
+          module.exports = {
+            // ...
+            plugins: [
+              // ...
+              require('@tailwindcss/forms'),
+            ],
+          }
+          ```
+        -->
         <nav class="bg-indigo-600">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-              <div class="flex items-center">
+          <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+            <div class="relative flex items-center justify-between h-16">
+              <div class="flex items-center px-2 lg:px-0">
                 <div class="flex-shrink-0">
                   <p class="text-4xl text-center text-white align-middle">
                   <a href="/">
@@ -66,61 +81,80 @@
                   </a>
                   </p>
                 </div>
-                <div class="hidden md:block">
-                  <div class="ml-10 flex items-baseline space-x-4">
-                    <!-- Current: "bg-indigo-700 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" -->
-                    <%# <a href="#" class="bg-indigo-700 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a> %>
+                <div class="hidden lg:block lg:ml-6">
+                  <div class="flex space-x-4">
+                    <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                    <a href="/" class="text-gray-300 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Collections</a>
+                    <a href="/leaderboard" class="text-gray-300 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Leaderboard</a>
+                    <a href="https://airtable.com/shrgVynCHdF1zGSHz" class="text-gray-300 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" target="_blank">Submit Project</a>
                   </div>
                 </div>
               </div>
-
-              <div class="relative inline-block text-left" x-data="{open: false}" @mouseover="open = true" @mouseleave="open = false">
-                <div class="relative flex items-center space-x-1 cursor-pointer text-sm font-medium">
-                  
-                    <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500" id="menu-button" aria-expanded="true" aria-haspopup="true">
-                      Collections
-                      <!-- Heroicon name: solid/chevron-down -->
-                      <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              <div class="flex-1 flex justify-center px-2 lg:ml-6 lg:justify-end">
+                <form action="/search" class="max-w-lg w-full lg:max-w-xs">
+                  <label for="search" class="sr-only">Search</label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <!-- Heroicon name: solid/search -->
+                      <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                       </svg>
-                    </button>
-                  
+                    </div>
 
-                <div class="origin-top-right top-7 absolute right-0 mt-2 w-72 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none" x-show="open" x-cloak role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" style="z-index:1000">
-                
-                  <div class="py-1" role="none">
-                    <% @all_collections.each do |collection| %>
-                    <a href="<%=collection_path(collection.slug)%>" class="text-gray-700 group flex items-center px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">
-                      <div class="flex items-center">
-                        <div class="flex-shrink-0 h-5 w-5">
-                          <img class="h-5 w-5 rounded-md" src="<%=collection.image_url%>" alt="">
-                        </div>
-                        <div class="ml-2">
-                          <div class="text-sm font-medium text-gray-900">
-                            <%=collection.name%>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      
-                    </a>
-                    <% end %>
-                    
+                    <input id="search" name="term" class="block w-full pl-10 pr-3 py-2 border border-transparent rounded-md leading-5 bg-indigo-700 text-gray-300 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-white focus:ring-white focus:text-gray-900 sm:text-sm" placeholder="Search for a collection" type="search">
                   </div>
-                  
-                  
-                </div>
+                </form>
+              </div>
+              <div class="flex lg:hidden">
+                <!-- Mobile menu button -->
+                <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                  <span class="sr-only">Open main menu</span>
+                  <!--
+                    Icon when menu is closed.
+
+                    Heroicon name: outline/menu
+
+                    Menu open: "hidden", Menu closed: "block"
+                  -->
+                  <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                  <!--
+                    Icon when menu is open.
+
+                    Heroicon name: outline/x
+
+                    Menu open: "block", Menu closed: "hidden"
+                  -->
+                  <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <div class="hidden lg:block lg:ml-4">
+                <div class="flex items-center">
+                  <% if @wallet.present? %>
+                    <button type="button" class="text-white font-bold" id="btn-disconnect">
+                      <img src="<%=Identicon.data_url_for @wallet.address, 128, [16, 185, 129]%>" class="h-8 w-8 rounded-full inline mr-1" />
+                      <%= @wallet.address.truncate(12, omission: "...#{@wallet.address.last(4)}") %>
+                    </button>
+                  <% else %>
+                    <button type="button" class="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" id="btn-connect">
+                      Connect Wallet
+                    </button>
+                  <% end %>
                 </div>
               </div>
-
             </div>
           </div>
 
           <!-- Mobile menu, show/hide based on menu state. -->
-          <div class="md:hidden" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              <!-- Current: "bg-indigo-700 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" -->
-              <%# <a href="#" class="bg-indigo-700 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Dashboard</a> %>
+          <div class="lg:hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+              <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+              <a href="/" class="text-gray-300 hover:bg-indigo-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Collections</a>
+              <a href="/leaderboard" class="text-gray-300 hover:bg-indigo-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Leaderboard</a>
+              <a href="https://airtable.com/shrgVynCHdF1zGSHz" class="text-gray-300 hover:bg-indigo-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Submit Project</a>
             </div>
           </div>
         </nav>
@@ -153,6 +187,10 @@
         </div>
       </div>
     </footer>
-
+    <script type="text/javascript" src="https://unpkg.com/web3@1.2.11/dist/web3.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.0/dist/index.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/evm-chains@0.2.0/dist/umd/index.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/fortmatic@2.0.6/dist/fortmatic.js"></script>
   </body>
 </html>
