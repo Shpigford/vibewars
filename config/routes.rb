@@ -2,7 +2,7 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
   get '/(*path)', to: redirect { |path_params, request|
-          "https://vibewars.lol/#{path_params[:path]}"
+          "https://vibewars.com/#{path_params[:path]}"
         },
   status: 301,
   constraints: { domain: 'vibewars-production.onrender.com' }
