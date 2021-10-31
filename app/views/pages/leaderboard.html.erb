@@ -74,7 +74,7 @@
                       <div class="mt-4 flex-shrink-0 sm:mt-0">
                         <div class="flex overflow-hidden -space-x-1">
                       <% 
-                        collections = Vote.where(wallet_id: 1).group(:collection_id).order(count_all: :desc).count.first(5)
+                        collections = Vote.where(wallet_id: wallet.id).group(:collection_id).order(count_all: :desc).count.first(5)
                         
                         collections.each do |collection|
                           collection_item = Collection.find(collection[0])
