@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_31_213405) do
+ActiveRecord::Schema.define(version: 2021_10_31_221014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2021_10_31_213405) do
     t.index ["collection_id"], name: "index_assets_on_collection_id"
     t.index ["elo_rating"], name: "index_assets_on_elo_rating"
     t.index ["opensea_id"], name: "index_assets_on_opensea_id"
+    t.index ["owner_address"], name: "index_assets_on_owner_address"
     t.index ["rank"], name: "index_assets_on_rank"
   end
 
