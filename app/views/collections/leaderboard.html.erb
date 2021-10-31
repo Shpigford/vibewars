@@ -51,6 +51,7 @@
 
     <div class="px-4 pb-4 sm:px-0 mt-4">
 
+      <% if !@wallet.present? %>
       <div class="rounded-md bg-indigo-50 p-4 mb-4 border-2 border-indigo-400">
         <div class="flex">
           <div class="flex-shrink-0">
@@ -66,6 +67,7 @@
           </div>
         </div>
       </div>
+      <% end %>
 
       <div class="flex flex-col">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
