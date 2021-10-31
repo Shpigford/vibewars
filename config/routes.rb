@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   end
 
   resources :votes
+  resources :wallets
 
   get '/votes/:winner/:loser', to: 'votes#battle', as: 'votes_battle'
 

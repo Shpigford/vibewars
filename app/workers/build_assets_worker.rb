@@ -41,6 +41,10 @@ class BuildAssetsWorker
       end
 
       if asset['owner'].present?
+        opensea_asset.update(
+          owner_address: asset['owner']['address'].downcase
+        )
+        
         wallet = Wallet.where('lower(address) = ?', asset['owner']['address'].downcase).first
         if wallet.present?
           wallet.update(

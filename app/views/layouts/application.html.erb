@@ -86,6 +86,9 @@
                     <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                     <a href="/" class="text-gray-300 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Collections</a>
                     <a href="/leaderboard" class="text-gray-300 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Leaderboard</a>
+                    <% if @wallet.present? %>
+                    <a href="/wallets/<%=@wallet.address%>" class="text-gray-300 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Wallet</a>
+                    <% end %>
                     <a href="/submit-project" class="text-gray-300 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Submit Project</a>
                   </div>
                 </div>
@@ -154,6 +157,9 @@
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
               <a href="/" class="text-gray-300 hover:bg-indigo-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Collections</a>
               <a href="/leaderboard" class="text-gray-300 hover:bg-indigo-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Leaderboard</a>
+              <% if @wallet.present? %>
+              <a href="/wallets/<%=@wallet.address%>" class="text-gray-300 hover:bg-indigo-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Wallet</a>
+              <% end %>
               <a href="/submit-project" class="text-gray-300 hover:bg-indigo-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Submit Project</a>
             </div>
           </div>
