@@ -9,8 +9,6 @@ class CollectionsController < ApplicationController
       redirect_to collection_path(@collection.slug)
     else
       @collection = Collection.where(slug: params[:id]).first
-      total_rows = @collection.count
-      percent_to_call = 100/total_rows.to_f
     end
 
     compare = @collection.assets.order(votes_count: :asc).limit(50)
