@@ -3,12 +3,22 @@ class CollectionsController < ApplicationController
 
   def index
     @collections = Collection.all.order(name: :asc)
+
+    respond_to do |format|
+      format.html
+      format.json { render json: { collections: @collections } }
+    end
   end
 
   def show
     compare = @collection.assets.order(votes_count: :asc).limit(50)
     @item_first = compare.sample
     @item_last = compare.sample
+
+    respond_to do |format|
+      format.html
+      format.json { render json: { collection: @collection, total_items: @collection.assets.count, total_votes: @collection.votes.count, percent_done: @collection.percentage_voted, rank_confidence: @collection.rank_confidence } }
+    end
 
     if @item_first == @item_last or @item_first.blank? or @item_last.blank? 
       redirect_to collection_path(@collection.slug)
@@ -17,6 +27,11 @@ class CollectionsController < ApplicationController
 
   def ranking
     @assets = @collection.assets.where('rank > 0').order(rank: :asc).page params[:page]
+
+    respond_to do |format|
+      format.html
+      format.json { render json: { collection: @collection, total_items: @collection.assets.count, total_votes: @collection.votes.count, percent_done: @collection.percentage_voted, rank_confidence: @collection.rank_confidence, assets: @assets } }
+    end
   end
 
   def leaderboard
@@ -32,5 +47,5 @@ private
       @collection = Collection.where(slug: params[:id]).first
     end
   end
-  
+
 end
