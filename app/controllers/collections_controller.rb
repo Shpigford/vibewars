@@ -20,11 +20,6 @@ class CollectionsController < ApplicationController
     if @item_first == @item_last or @item_first.blank? or @item_last.blank? 
       redirect_to collection_path(@collection.slug)
     end
-
-    votes = Vote.where(collection: @collection.id).pluck(:winner_id, :loser_id)
-    total_votes = votes.flatten(1).uniq.count
-    raw_percent = (total_votes.to_f / @collection.assets.count).to_f * 100
-    @percent_done = raw_percent >= 100 ? 100.to_i : raw_percent
   end
 
   def ranking
@@ -36,12 +31,6 @@ class CollectionsController < ApplicationController
     end
 
     @assets = @collection.assets.where('rank > 0').order(rank: :asc).page params[:page]
-
-    # TODO: Duplicate of the method above...need to abstract it out
-    votes = Vote.where(collection: @collection.id).pluck(:winner_id, :loser_id)
-    total_votes = votes.flatten(1).uniq.count
-    raw_percent = (total_votes.to_f / @collection.assets.count).to_f * 100
-    @percent_done = raw_percent >= 100 ? 100.to_i : raw_percent
   end
 
   def leaderboard

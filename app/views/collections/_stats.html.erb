@@ -22,10 +22,10 @@
         % of Collection Battled
       </dt>
       <dd class="mt-1 text-3xl font-semibold text-gray-900">
-        <%= @percent_done.round(2) %>%
+        <%= @collection.percentage_voted.round(2) %>%
         <div class="relative pt-1">
           <div class="overflow-hidden h-2 text-xs flex rounded bg-purple-200">
-              <div style="width:<%= @percent_done.round(2) %>%"
+              <div style="width:<%= @collection.percentage_voted.round(2) %>%"
                   class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-indigo-500">
               </div>
           </div>
