@@ -25,9 +25,6 @@ class CollectionsController < ApplicationController
     total_votes = votes.flatten(1).uniq.count
     raw_percent = (total_votes.to_f / @collection.assets.count).to_f * 100
     @percent_done = raw_percent >= 100 ? 100.to_i : raw_percent
-
-    raw_confidence = (@collection.assets.average(:votes_count) / 30) * 100
-    @ranking_confidence = raw_confidence >= 100 ? 100.to_i : raw_confidence
   end
 
   def ranking
@@ -45,9 +42,6 @@ class CollectionsController < ApplicationController
     total_votes = votes.flatten(1).uniq.count
     raw_percent = (total_votes.to_f / @collection.assets.count).to_f * 100
     @percent_done = raw_percent >= 100 ? 100.to_i : raw_percent
-
-    raw_confidence = (@collection.assets.average(:votes_count) / 30) * 100
-    @ranking_confidence = raw_confidence >= 100 ? 100.to_i : raw_confidence
   end
 
   def leaderboard

@@ -43,10 +43,10 @@
         </span>
       </dt>
       <dd class="mt-1 text-3xl font-semibold text-gray-900">
-        <%= @ranking_confidence.round(3) %>%
+        <%= @collection.rank_confidence.round(3) %>%
         <div class="relative pt-1">
           <div class="overflow-hidden h-2 text-xs flex rounded bg-purple-200">
-              <div style="width:<%= @ranking_confidence %>%"
+              <div style="width:<%= @collection.rank_confidence %>%"
                   class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-indigo-500">
               </div>
           </div>
