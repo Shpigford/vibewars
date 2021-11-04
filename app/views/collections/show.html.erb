@@ -62,7 +62,6 @@
     <div class="rounded-md bg-indigo-50 p-4 mb-4 border-2 border-indigo-400">
       <div class="flex">
         <div class="flex-shrink-0">
-          <!-- Heroicon name: solid/information-circle -->
           <svg class="h-7 w-7 text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
             <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
           </svg>
@@ -76,15 +75,49 @@
     </div>
     <% end %>
 
-    <div class="px-4 pb-4 sm:px-0">
+    <div class="px-4 pb-4 sm:px-0 relative">
+      
+      <div class="bg-white overflow-hidden shadow rounded-lg relative">
 
-      <div class="bg-white overflow-hidden shadow rounded-lg">
+        <% if @vote_throttle %>
+        <div class="absolute w-full bg-white bg-opacity-75" style="z-index:10000" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+          <div class="flex items-start justify-start h-screen pt-20 px-4 pb-10 mt-28 text-center sm:block sm:p-0">
+
+            <span class="hidden inline-block align-middle" aria-hidden="true">&#8203;</span>
+
+            <div class="inline-block align-top bg-white rounded-lg px-4 mt-10 pb-4 text-center overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+              <div>
+                <div class="mx-auto flex items-center text-center justify-center h-20 w-20 rounded-full">
+                  <i class="fa-duotone fa-igloo h-20 w-20 text-blue-500"></i>
+                </div>
+                <div class="mt-3 text-center sm:mt-5">
+                  <h3 class="text-xl leading-4 font-bold text-gray-900" id="modal-title">
+                    Cooldown Period
+                  </h3>
+                  <div class="mt-2">
+                    <p class="text-md text-gray-500 mb-3">
+                      You're doing an amazing job battling <%= @collection.name %>, with <b><%= @recent_vote_count %> battles</b> in the past hour! 
+                    </p>
+                    <p class="text-xs text-gray-500">To keep the rankings for this collection balanced, you'll need to take a little break and check out some other collections for a few minutes!</p>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-5 sm:mt-6">
+                <a href="/" target="_top" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
+                  View other collections
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% end %>
+
         <div class="px-4 pt-7 sm:px-6">
           <h2 class="text-4xl font-bold text-gray-900 text-center">Which one do you like more?</h2>
         </div>
         
         <div class="px-4 p-0 sm:p-6">
-          <ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-2 xl:gap-x-8" data-controller="vote" data-action="keydown@window->vote#keypress">
+          <ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-2 xl:gap-x-8" data-controller="vote"<% unless @vote_throttle %> data-action="keyup@window->vote#keypress"<% end %>>
             
             <li class="relative item_first">
               <%= link_to votes_battle_path(@item_first.id, @item_last.id), 'data-action': 'click->vote#toggle', 'data-vote-target': 'itemFirst' do %>
