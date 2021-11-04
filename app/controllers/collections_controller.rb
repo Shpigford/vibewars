@@ -15,6 +15,9 @@ class CollectionsController < ApplicationController
     @item_first = compare.sample
     @item_last = compare.sample
 
+    @recent_vote_count = @collection.votes.where('ip_address = ? AND created_at > ?', request.remote_ip, Time.current - 60.minutes).count
+    @vote_throttle = @recent_vote_count > 300 ? true : false
+    
     respond_to do |format|
       format.html
       format.json { render json: { collection: @collection, total_items: @collection.assets.count, total_votes: @collection.votes.count, percent_done: @collection.percentage_voted, rank_confidence: @collection.rank_confidence } }

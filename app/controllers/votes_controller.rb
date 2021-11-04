@@ -16,7 +16,9 @@ class VotesController < ApplicationController
     end
 
     # Prevent counting duplicate vote if > 15 minutes 
-    if ((ip_winner_loser_last_voted.present? and seconds_since_last_winner_loser_voted < (60 * 15)) or (ip_last_voted.present? and seconds_since_last_voted < 2)) and (winner.votes_count > 5 or loser.votes_count > 5)
+    if (
+        (ip_winner_loser_last_voted.present? and seconds_since_last_winner_loser_voted < (60 * 15)) or (ip_last_voted.present? and seconds_since_last_voted < 1.5)
+      )
       redirect_to collection_path(collection.slug)
     else      
       win_probability = 1/(10.0 ** ((loser.elo_rating.to_f - winner.elo_rating.to_f)/400) + 1)
