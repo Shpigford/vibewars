@@ -41,6 +41,7 @@ gem "skylight"
 gem "turnout"
 gem "kaminari", git: 'git://github.com/kaminari/kaminari.git'
 gem 'identicon'
+gem 'discordrb', github: 'shardlab/discordrb', branch: 'main'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
