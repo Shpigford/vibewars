@@ -15,7 +15,12 @@ class CollectionsController < ApplicationController
     @item_first = compare.sample
     @item_last = compare.sample
 
-    @recent_vote_count = @collection.votes.where('ip_address = ? AND created_at > ?', request.remote_ip, Time.current - 60.minutes).count
+    if @wallet.present?
+      @recent_vote_count = @collection.votes.where('wallet_id = ? AND created_at > ?', @wallet.id, Time.current - 60.minutes).count
+    else
+      @recent_vote_count = @collection.votes.where('ip_address = ? AND created_at > ?', request.remote_ip, Time.current - 60.minutes).count
+    end
+
     @vote_throttle = @recent_vote_count > 300 ? true : false
     
     respond_to do |format|
