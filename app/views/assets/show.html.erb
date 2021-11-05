@@ -158,6 +158,8 @@
 
 
         </div>
+
+        <% unless @asset.traits === "{}" %>
         <hr>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 
@@ -171,9 +173,9 @@
             </div>
           </div>
           <% end %>
-
-
         </div>
+        <% end %>
+
       </div>
     </div>
   </div>
