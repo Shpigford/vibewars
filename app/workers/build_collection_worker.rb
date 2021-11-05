@@ -29,6 +29,7 @@ class BuildCollectionWorker
     collection.twitter_username = collection_data['twitter_username']
     collection.instagram_username = collection_data['instagram_username']
     collection.count = collection_data['stats']['count']
+    collection.traits = collection_data['traits']
 
     collection.save
 

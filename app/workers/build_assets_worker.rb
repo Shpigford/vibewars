@@ -27,6 +27,7 @@ class BuildAssetsWorker
       opensea_asset.description = asset['description']
       opensea_asset.external_link = asset['external_link']
       opensea_asset.opensea_link = asset['permalink']
+      opensea_asset.traits = asset['traits']
 
       if asset['sell_orders'].present?
         order = asset['sell_orders'].first
