@@ -31,24 +31,24 @@ class BuildAssetsWorker
         opensea_link: asset['permalink']
       )
 
-      if asset['traits'].present?
-        asset['traits'].each do |trait|
-          new_trait = Trait.where(
-            asset: opensea_asset,
-            trait_type: trait['trait_type'], 
-            value: trait['value']
-          ).first_or_initialize(
-            asset: opensea_asset,
-            trait_type: trait['trait_type'], 
-            value: trait['value'],
-            display_type: trait['display_type'],
-            max_value: trait['max_value'],
-            trait_count: trait['trait_count'],
-            order: trait['order']
-          )
-          new_trait.save
-        end
-      end
+      # if asset['traits'].present?
+      #   asset['traits'].each do |trait|
+      #     new_trait = Trait.where(
+      #       asset: opensea_asset,
+      #       trait_type: trait['trait_type'], 
+      #       value: trait['value']
+      #     ).first_or_initialize(
+      #       asset: opensea_asset,
+      #       trait_type: trait['trait_type'], 
+      #       value: trait['value'],
+      #       display_type: trait['display_type'],
+      #       max_value: trait['max_value'],
+      #       trait_count: trait['trait_count'],
+      #       order: trait['order']
+      #     )
+      #     new_trait.save
+      #   end
+      # end
 
       if asset['sell_orders'].present?
         order = asset['sell_orders'].first
