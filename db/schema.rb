@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_31_221014) do
+ActiveRecord::Schema.define(version: 2021_11_05_010331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,19 @@ ActiveRecord::Schema.define(version: 2021_10_31_221014) do
     t.index ["slug"], name: "index_collections_on_slug"
   end
 
+  create_table "traits", force: :cascade do |t|
+    t.bigint "asset_id", null: false
+    t.string "trait_type"
+    t.string "value"
+    t.string "display_type"
+    t.string "max_value"
+    t.integer "trait_count"
+    t.integer "order"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["asset_id"], name: "index_traits_on_asset_id"
+  end
+
   create_table "votes", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -96,5 +109,6 @@ ActiveRecord::Schema.define(version: 2021_10_31_221014) do
   end
 
   add_foreign_key "assets", "collections"
+  add_foreign_key "traits", "assets"
   add_foreign_key "votes", "wallets"
 end
