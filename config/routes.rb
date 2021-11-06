@@ -18,6 +18,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :assets do
+    member do
+      get 'redirect'
+    end
+  end
+
   resources :votes
   resources :wallets
 
