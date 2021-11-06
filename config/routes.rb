@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :assets do
+  resources :assets, path: :'collection-assets' do
     member do
       get 'redirect'
     end
