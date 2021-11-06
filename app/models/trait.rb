@@ -1,2 +1,0 @@
-class Trait < ApplicationRecord
-end
