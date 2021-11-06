@@ -11,7 +11,7 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    compare = @collection.assets.order(votes_count: :asc).limit(50)
+    compare = @collection.assets.where.not(image_original_url: nil).order(votes_count: :asc).limit(50)
     @item_first = compare.sample
     @item_last = compare.sample
 
