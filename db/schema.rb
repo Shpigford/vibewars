@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_31_221014) do
+ActiveRecord::Schema.define(version: 2021_11_06_000111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2021_10_31_221014) do
     t.integer "current_sale_token_decimals"
     t.integer "rank", default: 0
     t.string "owner_address"
+    t.jsonb "traits", default: "{}", null: false
     t.index ["collection_id", "id"], name: "index_assets_on_collection_id_and_id"
     t.index ["collection_id", "votes_count"], name: "index_assets_on_collection_id_and_votes_count"
     t.index ["collection_id"], name: "index_assets_on_collection_id"
@@ -46,6 +47,7 @@ ActiveRecord::Schema.define(version: 2021_10_31_221014) do
     t.index ["opensea_id"], name: "index_assets_on_opensea_id"
     t.index ["owner_address"], name: "index_assets_on_owner_address"
     t.index ["rank"], name: "index_assets_on_rank"
+    t.index ["traits"], name: "index_assets_on_traits", using: :gin
   end
 
   create_table "collections", force: :cascade do |t|
@@ -67,8 +69,10 @@ ActiveRecord::Schema.define(version: 2021_10_31_221014) do
     t.integer "count"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.jsonb "traits", default: "{}", null: false
     t.index ["address"], name: "index_collections_on_address"
     t.index ["slug"], name: "index_collections_on_slug"
+    t.index ["traits"], name: "index_collections_on_traits", using: :gin
   end
 
   create_table "votes", force: :cascade do |t|

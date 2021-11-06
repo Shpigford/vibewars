@@ -11,10 +11,18 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    compare = @collection.assets.order(votes_count: :asc).limit(50)
+    compare = @collection.assets.where.not(image_original_url: nil).order(votes_count: :asc).limit(50)
     @item_first = compare.sample
     @item_last = compare.sample
 
+    if @wallet.present?
+      @recent_vote_count = @collection.votes.where('wallet_id = ? AND created_at > ?', @wallet.id, Time.current - 60.minutes).count
+    else
+      @recent_vote_count = @collection.votes.where('ip_address = ? AND created_at > ?', request.remote_ip, Time.current - 60.minutes).count
+    end
+
+    @vote_throttle = @recent_vote_count > 300 ? true : false
+    
     respond_to do |format|
       format.html
       format.json { render json: { collection: @collection, total_items: @collection.assets.count, total_votes: @collection.votes.count, percent_done: @collection.percentage_voted, rank_confidence: @collection.rank_confidence } }
@@ -26,7 +34,15 @@ class CollectionsController < ApplicationController
   end
 
   def ranking
-    @assets = @collection.assets.where('rank > 0').order(rank: :asc).page params[:page]
+    @assets = @collection.assets
+
+    if params[:trait].present?
+      params[:trait].each do |trait|
+        @assets = @assets.where('traits @> ?', [{trait_type: trait['type']}, {value: trait['value']}].to_json)
+      end
+    end
+
+    @assets = @assets.where('rank > 0').order(rank: :asc).page params[:page]
 
     respond_to do |format|
       format.html
