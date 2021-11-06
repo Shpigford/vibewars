@@ -25,7 +25,7 @@ class CollectionsController < ApplicationController
     
     respond_to do |format|
       format.html
-      format.json { render json: { collection: @collection, total_items: @collection.assets.count, total_votes: @collection.votes.count, percent_done: @collection.percentage_voted, rank_confidence: @collection.rank_confidence } }
+      format.json { render json: { collection: @collection, total_items: @collection.assets.count, total_votes: @collection.votes.count, percent_done: @collection.percentage_voted, rank_confidence: @collection.rank_confidence, item_first: @item_first, item_last: @item_last } }
     end
 
     if @item_first == @item_last or @item_first.blank? or @item_last.blank? 
