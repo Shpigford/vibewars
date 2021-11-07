@@ -4,21 +4,21 @@ class VotesController < ApplicationController
     loser = Asset.find(params[:loser])
     collection = winner.collection
 
+    recent_vote = Vote.where('winner_id=? OR loser_id=? OR winner_id=? OR loser_id=?', winner.id, loser.id, loser.id, winner.id).where(collection: collection).where('created_at > ?', Time.current - 5.minutes).count
+
     ip_last_voted = Vote.where(ip_address: request.remote_ip).order(created_at: :desc).limit(1).first
-    ip_winner_loser_last_voted = Vote.where('winner_id=? OR loser_id=? OR winner_id=? OR loser_id=?', winner.id, loser.id, loser.id, winner.id).where(ip_address: request.remote_ip).order(created_at: :desc).limit(1).first
+    # ip_winner_loser_last_voted = Vote.where('winner_id=? OR loser_id=? OR winner_id=? OR loser_id=?', winner.id, loser.id, loser.id, winner.id).where(ip_address: request.remote_ip).order(created_at: :desc).limit(1).first
 
     if ip_last_voted.present?
       seconds_since_last_voted = Time.current - ip_last_voted.created_at
     end
 
-    if ip_winner_loser_last_voted.present?
-      seconds_since_last_winner_loser_voted = Time.current - ip_winner_loser_last_voted.created_at
-    end
+    # if ip_winner_loser_last_voted.present?
+    #   seconds_since_last_winner_loser_voted = Time.current - ip_winner_loser_last_voted.created_at
+    # end
 
     # Prevent counting duplicate vote if > 15 minutes 
-    if (
-        (ip_winner_loser_last_voted.present? and seconds_since_last_winner_loser_voted < (60 * 15)) or (ip_last_voted.present? and seconds_since_last_voted < 1.5)
-      )
+    if ((recent_vote > 0) or (ip_last_voted.present? and seconds_since_last_voted < 1.5))
       redirect_to collection_path(collection.slug)
     else      
       win_probability = 1/(10.0 ** ((loser.elo_rating.to_f - winner.elo_rating.to_f)/400) + 1)
