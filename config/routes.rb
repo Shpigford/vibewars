@@ -11,16 +11,15 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => "/sidekiq"
 
   resources :collections do
-    resources :assets
+    resources :assets do
+    member do
+      get 'direct'
+      get 'redirect'
+    end
+    end
     member do
       get 'ranking'
       get 'leaderboard'
-    end
-  end
-
-  resources :assets, path: :'collection-assets' do
-    member do
-      get 'redirect'
     end
   end
 

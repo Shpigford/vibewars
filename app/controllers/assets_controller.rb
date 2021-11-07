@@ -14,9 +14,18 @@ class AssetsController < ApplicationController
     end
   end
   
-  def redirect
-    asset = Asset.find(params[:id])
+  def direct
+    @asset = Asset.find(params[:id])
 
-    redirect_to collection_asset_path(asset.collection.slug, asset.token_id)
+    respond_to do |format|
+      format.html
+      format.json { render json: { collection: @asset.collection, asset: @asset} }
+    end
+  end
+
+  def redirect
+    @asset = Asset.find(params[:id])
+
+    redirect_to collection_asset_path(@asset.collection.slug, @asset.token_id)
   end
 end
