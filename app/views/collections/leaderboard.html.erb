@@ -85,6 +85,7 @@
                   </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
+                <% cache(['v1', "leaderboard-#{@collection.id}"], expires_in: 1.hours) do %>
                 <% @leaders.each_with_index do |leader, index| %>
                   <% wallet = Wallet.find(leader[0][0]) if leader[0][0].present? %>
                   <% discord_user = @discord.user(leader[0][1]) if leader[0][1].present? %>
@@ -122,6 +123,7 @@
                       <span class="py-3 px-6 inline-flex text-lg leading-5 font-semibold rounded-full bg-green-100 text-green-800"><%=leader[1]%></span>
                     </td>
                   </tr>
+                  <% end %>
                   <% end %>
                 </tbody>
               </table>
