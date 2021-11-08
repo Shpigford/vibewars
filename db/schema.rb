@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_06_000111) do
+ActiveRecord::Schema.define(version: 2021_11_08_164441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,7 +83,11 @@ ActiveRecord::Schema.define(version: 2021_11_06_000111) do
     t.bigint "loser_id"
     t.bigint "collection_id"
     t.bigint "wallet_id"
+    t.bigint "discord_server_id"
+    t.bigint "discord_user_id"
     t.index ["collection_id"], name: "index_votes_on_collection_id"
+    t.index ["discord_server_id"], name: "index_votes_on_discord_server_id"
+    t.index ["discord_user_id"], name: "index_votes_on_discord_user_id"
     t.index ["ip_address"], name: "index_votes_on_ip_address"
     t.index ["loser_id"], name: "index_votes_on_loser_id"
     t.index ["wallet_id"], name: "index_votes_on_wallet_id"

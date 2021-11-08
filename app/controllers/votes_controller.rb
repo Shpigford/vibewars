@@ -38,7 +38,10 @@ class VotesController < ApplicationController
         wallet = nil
       end
 
-      Vote.create(winner_id: winner.id, loser_id: loser.id, ip_address: request.remote_ip, collection: winner.collection, wallet_id: wallet)
+      discord_server_id = params[:discord_server_id].present? ? params[:discord_server_id] : nil
+      discord_user_id = params[:discord_user_id].present? ? params[:discord_user_id] : nil
+
+      Vote.create(winner_id: winner.id, loser_id: loser.id, ip_address: request.remote_ip, collection: winner.collection, wallet_id: wallet, discord_server_id: discord_server_id, discord_user_id: discord_user_id)
       
       winner.increment!(:votes_count)
       loser.increment!(:votes_count)
