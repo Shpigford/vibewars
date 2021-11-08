@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/hotwired/turbo-rails.git
+  revision: fa5a65297264bcd4b6a96d3e63c8e10721fd0a18
+  specs:
+    turbo-rails (0.8.3)
+      rails (>= 6.0.0)
+
+GIT
   remote: git://github.com/kaminari/kaminari.git
   revision: 73b93405b95615b5ad3f53c3dffe419a59890cad
   specs:
@@ -232,8 +239,6 @@ GEM
       rails (>= 6.0.0)
     thor (1.1.0)
     tilt (2.0.10)
-    turbo-rails (7.1.1)
-      rails (>= 6.0.0)
     turnout (2.5.0)
       i18n (>= 0.7, < 2)
       rack (>= 1.3, < 3)
@@ -291,7 +296,7 @@ DEPENDENCIES
   skylight
   stimulus-rails (>= 0.4.0)
   tailwindcss-rails (~> 0.5.1)
-  turbo-rails (>= 0.7.11)
+  turbo-rails!
   turnout
   tzinfo-data
   web-console (>= 4.1.0)
