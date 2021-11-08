@@ -86,23 +86,33 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                 <% @leaders.each_with_index do |leader, index| %>
-                  <% wallet = Wallet.find(leader[0]) %>
+                  <% wallet = Wallet.find(leader[0][0]) if leader[0][0].present? %>
+                  <% discord_user = @discord.user(leader[0][1]) if leader[0][1].present? %>
+                  
                   <tr>
                     <td class="px-6 py-4 whitespace-nowrap">
                       <div class="flex items-center">
                         <div class="flex-shrink-0 h-10 w-10">
-                        <% if wallet.opensea_profile_img_url.present? %>
-                        <img src="<%=wallet.opensea_profile_img_url%>" class="h-10 w-10 rounded-full" />
-                        <% else %>
-                          <img src="<%=Identicon.data_url_for wallet.address, 128, [16, 185, 129]%>" class="h-10 w-10 rounded-full" />
+                        <% if wallet.present? %>
+                          <% if wallet.opensea_profile_img_url.present? %>
+                          <img src="<%=wallet.opensea_profile_img_url%>" class="h-10 w-10 rounded-full" />
+                          <% else %>
+                            <img src="<%=Identicon.data_url_for wallet.address, 128, [16, 185, 129]%>" class="h-10 w-10 rounded-full" />
+                          <% end %>
+                        <% elsif discord_user.present? %>
+                          <img src="<%=discord_user.avatar_url %>" class="h-10 w-10 rounded-full" />
                         <% end %>
                         </div>
                         <div class="ml-4">
                           <div class="text-sm font-medium text-gray-900">
-                            <% if wallet.opensea_username.present? %>
-                            <%=wallet.opensea_username%> <span class="text-gray-400">(<%= wallet.address.truncate(12, omission: "...#{wallet.address.last(4)}") %>)</span>
-                            <% else %>
-                            <%= wallet.address.truncate(12, omission: "...#{wallet.address.last(4)}") %>
+                            <% if wallet.present? %>
+                              <% if wallet.opensea_username.present? %>
+                                <%=wallet.opensea_username%> <span class="text-gray-400">(<%= wallet.address.truncate(12, omission: "...#{wallet.address.last(4)}") %>)</span>
+                              <% else %>
+                                <%= wallet.address.truncate(12, omission: "...#{wallet.address.last(4)}") %>
+                              <% end %>
+                            <% elsif discord_user.present? %>
+                              <%=discord_user.name %> <i class="fa-brands fa-discord text-gray-300 ml-1"></i>
                             <% end %>
                           </div>
                         </div>

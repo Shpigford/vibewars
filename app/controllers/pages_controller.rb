@@ -6,6 +6,8 @@ class PagesController < ApplicationController
   end
 
   def leaderboard
-    @leaders = Vote.where.not(wallet_id: nil).group(:wallet_id).order(count_all: :desc).count
+    @discord = Discordrb::Bot.new(token: ENV['DISCORD'])
+
+    @leaders = Vote.where("wallet_id IS NOT NULL OR discord_user_id IS NOT NULL").group(:wallet_id, :discord_user_id).order(count_all: :desc).count
   end
 end
