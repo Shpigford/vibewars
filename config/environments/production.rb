@@ -119,7 +119,6 @@ Rails.application.configure do
           :failover => true,
           :socket_timeout => 1.5,
           :socket_failure_delay => 0.2,
-          :down_retry_delay => 60,
-          :pool_size => ENV['DB_POOL'] || ENV['RAILS_MAX_THREADS'] || 5
+          :down_retry_delay => 60
           }
 end
