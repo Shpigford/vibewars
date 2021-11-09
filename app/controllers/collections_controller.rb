@@ -11,7 +11,7 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    compare = @collection.assets.where.not(image_original_url: nil).where('updated_at < ?', Time.current - 5.minutes).order(votes_count: :asc).limit(50)
+    compare = @collection.assets.where.not(image_url: nil).where('updated_at < ?', Time.current - 5.minutes).order(votes_count: :asc).limit(50)
     @item_first = compare.sample
     @item_last = compare.sample
 
