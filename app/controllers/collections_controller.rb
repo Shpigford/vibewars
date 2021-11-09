@@ -11,9 +11,23 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    compare = @collection.assets.where.not(image_url: nil).where('updated_at < ?', Time.current - 5.minutes).order(votes_count: :asc).limit(50)
-    @item_first = compare.sample
-    @item_last = compare.sample
+    # Get a lower vote count item
+    compare_first = @collection.assets.where.not(image_url: nil).where('updated_at < ?', Time.current - 5.minutes).order(votes_count: :asc).limit(50)
+    first = compare_first.sample
+
+    # Get a totally random item, regardless of vote count
+    total_rows = @collection.count
+    percent_to_call = 100/total_rows.to_f
+
+    compare_last = Asset.from('"assets" TABLESAMPLE BERNOULLI(' + (percent_to_call+0.5).to_s + ')').where(collection_id: @collection.id).where.not(id: first.id)
+    last = compare_last.sample
+
+    # Merge objects from first random choices in array
+    samples = Array(first) + Array(last)
+
+    # Sample merged array
+    @item_first = samples.sample
+    @item_last = samples.sample
 
     if @wallet.present?
       @recent_vote_count = @collection.votes.where('wallet_id = ? AND created_at > ?', @wallet.id, Time.current - 60.minutes).count
