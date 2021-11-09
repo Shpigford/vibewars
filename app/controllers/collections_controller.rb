@@ -11,7 +11,12 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    compare = @collection.assets.where.not(image_url: nil).where('updated_at < ?', Time.current - 5.minutes).order(votes_count: :asc).limit(500)
+    compare = @collection.assets.where.not(image_url: nil).where('updated_at < ?', Time.current - 3.minutes).order(Arel.sql("(1 - (votes_count :: DECIMAL / MAX(votes_count * 10000000) OVER())) * (floor(random() * 100 + 1) :: int) desc")).limit(100)
+
+    if compare.size < 10
+      compare = @collection.assets.where.not(image_url: nil).order(Arel.sql("(1 - (votes_count :: DECIMAL / MAX(votes_count * 10000000) OVER())) * (floor(random() * 100 + 1) :: int) desc")).limit(100)
+    end
+
     @item_first = compare.sample
     @item_last = compare.sample
 
