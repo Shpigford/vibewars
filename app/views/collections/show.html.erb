@@ -4,7 +4,7 @@
 <header class="bg-white shadow">
   <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
     <div class="md:flex md:items-center md:justify-between md:space-x-5">
-      <div class="flex items-start space-x-5">
+      <div class="flex items-start space-x-5 flex-wrap">
         <div class="flex-shrink-0">
           <div class="relative">
             <img class="h-16 w-16 rounded-full" src="<%= @collection.image_url %>" alt="">
@@ -18,7 +18,6 @@
     
         <div class="py-3 pl-5">
           <nav class="flex space-x-4" aria-label="Tabs">
-            <!-- Current: "bg-indigo-100 text-indigo-700", Default: "text-gray-500 hover:text-gray-700" -->
             <a href="<%= collection_path(@collection.slug) %>" class="bg-indigo-100 text-indigo-700 text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">
               Battle
             </a>
@@ -59,7 +58,7 @@
     <%= render "stats" %>
 
     <% if !@wallet.present? %>
-    <div class="rounded-md bg-indigo-50 p-4 mb-4 border-2 border-indigo-400">
+    <div class="rounded-md bg-indigo-50 p-4 mb-4 border-2 border-indigo-400 mx-2 md:mx-0 hidden md:block">
       <div class="flex">
         <div class="flex-shrink-0">
           <svg class="h-7 w-7 text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -75,7 +74,7 @@
     </div>
     <% end %>
 
-    <div class="px-4 pb-4 sm:px-0 relative">
+    <div class="pb-4 sm:px-0 relative px-2 md:px-0">
       
       <div class="bg-white overflow-hidden shadow rounded-lg relative">
         <% if @vote_throttle %>
@@ -112,11 +111,11 @@
         <% end %>
 
         <div class="px-4 pt-7 sm:px-6">
-          <h2 class="text-4xl font-bold text-gray-900 text-center">Which one do you like more?</h2>
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 text-center">Which one do you like more?</h2>
         </div>
         
-        <div class="px-4 p-0 sm:p-6">
-          <ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-2 xl:gap-x-8" data-controller="vote"<% unless @vote_throttle %> data-action="keyup@window->vote#keypress"<% end %>>
+        <div class="px-2 md:px-4 p-0 sm:p-6">
+          <ul role="list" class="grid grid-cols-2 gap-x-0 md:gap-x-4 gap-y-8 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-2 xl:gap-x-8" data-controller="vote"<% unless @vote_throttle %> data-action="keyup@window->vote#keypress"<% end %>>
             
             <li class="relative item_first">
               <%= link_to votes_battle_path(@item_first.id, @item_last.id), 'data-action': 'click->vote#toggle', 'data-vote-target': 'itemFirst' do %>
@@ -134,7 +133,7 @@
                 
               </div>
               <% end %>
-              <p class="pt-3 text-sm text-center text-gray-500 font-medium hover:text-indigo-500"><a href="<%= collection_asset_url(@item_first.collection.slug, @item_first.token_id) %>" data-turbo-frame="_top"><%= @item_first.name %> <i class="fa-duotone fa-square-up-right"></i></a></p>
+              <p class="px-0 pb-3 md:px-3 text-sm text-center text-gray-500 font-medium hover:text-indigo-500"><a href="<%= collection_asset_url(@item_first.collection.slug, @item_first.token_id) %>" data-turbo-frame="_top"><%= @item_first.name %> <i class="fa-duotone fa-square-up-right"></i></a></p>
             </li>
 
             <li class="relative item_last">
@@ -153,7 +152,7 @@
                 
               </div>
               <% end %>
-              <p class="pt-3 text-sm text-center text-gray-500 font-medium hover:text-indigo-500"><a href="<%= collection_asset_url(@item_last.collection.slug, @item_last.token_id) %>" data-turbo-frame="_top"><%= @item_last.name %> <i class="fa-duotone fa-square-up-right"></i></a></p>
+              <p class="px-0 pb-3 md:px-3 text-sm text-center text-gray-500 font-medium hover:text-indigo-500"><a href="<%= collection_asset_url(@item_last.collection.slug, @item_last.token_id) %>" data-turbo-frame="_top"><%= @item_last.name %> <i class="fa-duotone fa-square-up-right"></i></a></p>
             </li>
 
           </ul>
