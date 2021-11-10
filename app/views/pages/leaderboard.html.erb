@@ -48,10 +48,18 @@
                 <tbody class="bg-white divide-y divide-gray-200">
                 <% cache(['v1', "leaderboard"], expires_in: 1.hours) do %>
                 <% @leaders.each_with_index do |leader, index| %>
-                  <% wallet = Wallet.find(leader[0][0]) if leader[0][0].present? %>
-                  <% discord_user = @discord.user(leader[0][1]) if leader[0][1].present? %>
-                  
                   <tr>
+                    <% 
+                      if leader[0][0].present?
+                        cache_name = "wallet-#{leader[0][0]}"
+                      elsif leader[0][1].present?
+                        cache_name = "discord-#{leader[0][1]}"
+                      end
+
+                      cache(['v1', "leaderboard-#{cache_name}"], expires_in: 12.hours) do 
+                    %>
+                    <% wallet = Wallet.find(leader[0][0]) if leader[0][0].present? %>
+                    <% discord_user = @discord.user(leader[0][1]) if leader[0][1].present? %>
                     <td class="px-6 py-4 whitespace-nowrap">
                       <div class="flex items-center">
                         <div class="flex-shrink-0 h-10 w-10">
@@ -98,6 +106,7 @@
                       </div>
                       </div>
                     </td>
+                    <% end %>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <span class="py-3 px-6 inline-flex text-lg leading-5 font-semibold rounded-full bg-green-100 text-green-800"><%=leader[1]%></span>
                     </td>
