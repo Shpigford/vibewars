@@ -8,7 +8,7 @@ class PagesController < ApplicationController
   def leaderboard
     @discord = Discordrb::Bot.new(token: ENV['DISCORD'])
 
-    @leaders = Rails.cache.fetch("query-leaders", expires_in: 1.hour) do
+    @leaders = Rails.cache.fetch(["v2","query-leaders"], expires_in: 1.hour) do
       Vote.where("wallet_id IS NOT NULL OR discord_user_id IS NOT NULL").group(:wallet_id, :discord_user_id).order(count_all: :desc).count.first(100)
     end
   end
