@@ -35,6 +35,9 @@
                 <thead class="bg-gray-50">
                   <tr>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <span class="sr-only">Position</span>
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       User
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -46,9 +49,12 @@
                   </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                <% cache(['v2', "leaderboard"], expires_in: 1.hours) do %>
+                <% cache(['v3', "leaderboard"], expires_in: 1.hours) do %>
                 <% @leaders.each_with_index do |leader, index| %>
                   <tr>
+                    <td class="pl-6 py-4 whitespace-nowrap text-gray-400 text-sm w-px text-center">
+                      <%= index + 1 %>
+                    </td>
                     <% 
                       if leader[0][0].present?
                         cache_name = "wallet-#{leader[0][0]}"
