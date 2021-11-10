@@ -5,3 +5,6 @@ import { application } from "./application"
 
 import VoteController from "./vote_controller.js"
 application.register("vote", VoteController)
+
+import MenuController from "./menu_controller.js"
+application.register("menu", MenuController)

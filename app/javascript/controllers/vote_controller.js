@@ -5,7 +5,6 @@ export default class extends Controller {
   static targets = ["element", "itemFirst", "itemLast"];
 
   toggle(event) {
-    //event.preventDefault();
     event.target.classList.add("opacity-100");
     event.target.classList.remove("opacity-0");
   }

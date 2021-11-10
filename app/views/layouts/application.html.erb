@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html class="h-full bg-gray-100">
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><%= content_for?(:title) ? ("#{yield(:title)} - Vibe Wars").html_safe : "Vibe Wars: NFT Visual Battles" %></title>
     <meta name="title" content="Vibe Wars">
     <meta name="description" content="<%= content_for?(:description) ? (yield(:description)) : "Find out which NFTs are the most visually desirable! In a set of thousands of NFTs, which ones do people actually like the look of the most?" %>">
@@ -53,23 +55,7 @@
 
   <body class="h-full">
       <div class="min-h-full">
-        <!--
-          This example requires Tailwind CSS v2.0+ 
-  
-          This example requires some changes to your config:
-  
-          ```
-          // tailwind.config.js
-          module.exports = {
-            // ...
-            plugins: [
-              // ...
-              require('@tailwindcss/forms'),
-            ],
-          }
-          ```
-        -->
-        <nav class="bg-indigo-600">
+        <nav class="bg-indigo-600" data-controller="menu">
           <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
             <div class="relative flex items-center justify-between h-16">
               <div class="flex items-center px-2 lg:px-0">
@@ -93,7 +79,7 @@
                   </div>
                 </div>
               </div>
-              <div class="flex-1 flex justify-center px-2 lg:ml-6 lg:justify-end">
+              <div class="flex-1 flex justify-center px-2 lg:ml-6 lg:justify-end hidden lg:block">
                 <form action="/search" class="max-w-lg w-full lg:max-w-xs">
                   <label for="search" class="sr-only">Search</label>
                   <div class="relative">
@@ -108,9 +94,11 @@
                   </div>
                 </form>
               </div>
+
+
               <div class="flex lg:hidden">
                 <!-- Mobile menu button -->
-                <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                <button data-action="click->menu#toggle" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
                   <span class="sr-only">Open main menu</span>
                   <!--
                     Icon when menu is closed.
@@ -148,13 +136,28 @@
                   <% end %>
                 </div>
               </div>
+              
             </div>
           </div>
 
           <!-- Mobile menu, show/hide based on menu state. -->
-          <div class="lg:hidden" id="mobile-menu">
+          <div data-menu-target="toggleable" class="hidden" id="mobile-menu">
+            <div class="flex-1 flex justify-center px-2 lg:ml-6 lg:justify-end">
+              <form action="/search" class="max-w-lg w-full lg:max-w-xs">
+                <label for="search" class="sr-only">Search</label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <!-- Heroicon name: solid/search -->
+                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+
+                  <input id="search" name="term" class="block w-full pl-10 pr-3 py-2 border border-transparent rounded-md leading-5 bg-indigo-700 text-gray-300 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-white focus:ring-white focus:text-gray-900 sm:text-sm" placeholder="Search for a collection" type="search">
+                </div>
+              </form>
+            </div>
             <div class="px-2 pt-2 pb-3 space-y-1">
-              <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
               <a href="/" class="text-gray-300 hover:bg-indigo-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Collections</a>
               <a href="/leaderboard" class="text-gray-300 hover:bg-indigo-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Leaderboard</a>
               <% if @wallet.present? %>
