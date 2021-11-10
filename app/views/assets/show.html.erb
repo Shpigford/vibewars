@@ -169,7 +169,9 @@
               <div class="flex-1 px-4 py-2 text-sm">
                 <span class="text-gray-900 font-medium hover:text-gray-600"><%= trait['trait_type']%></span>
                 <p class="text-lg font-bold text-black"><%= trait['value'] %></p>
+                <% if @collection.traits.present? %>
                 <p class="text-sm font-medium text-gray-500">Rarity: <span class="text-indigo-500"><%= trait_rarity(@collection.count, @collection.traits[trait['trait_type']][trait['value'].downcase]) %></span></p>
+                <% end %>
               </div>
             </div>
           </a>
