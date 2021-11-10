@@ -34,8 +34,26 @@ class BuildCollectionWorker
     collection.save
 
     # Kickoff asset workers
-    (0..collection_data['stats']['count'].to_i).step(50) do |n|
-      BuildAssetsWorker.perform_async(collection.slug, n)
+    collection_size = collection_data['stats']['count'].to_i
+
+    if collection_size > 10000
+      collection_remainder = collection_size - 10000
+      
+      (0..10000).step(50) do |n|
+        BuildAssetsWorker.perform_async(collection.slug, n)
+      end
+
+      (0..collection_remainder).step(50) do |n|
+        BuildAssetsWorker.perform_async(collection.slug, n, 'desc')
+      end
+    else
+      (0..collection_size).step(50) do |n|
+        BuildAssetsWorker.perform_async(collection.slug, n)
+      end
     end
+
+    
+
+    
   end
 end
