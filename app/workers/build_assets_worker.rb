@@ -42,10 +42,9 @@ class BuildAssetsWorker
         
         wallet = Wallet.where('lower(address) = ?', asset['owner']['address'].downcase).first
         if wallet.present?
-          wallet.update(
-            opensea_username: asset['owner']['user']['username'],
-            opensea_profile_img_url: asset['owner']['profile_img_url']
-          )
+          wallet.opensea_username = asset['owner']['user']['username'] if asset['owner']['user'].present?
+          wallet.opensea_profile_img_url = asset['owner']['profile_img_url']
+          wallet.save
         end
       end
 
