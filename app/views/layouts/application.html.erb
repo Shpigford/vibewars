@@ -51,6 +51,15 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <script src="https://cdn.usefathom.com/script.js" data-site="MLLOEFAH" defer></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NNP25T9TPK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', ENV['GA']);
+    </script>
   </head>
 
   <body class="h-full">
