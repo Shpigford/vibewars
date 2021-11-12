@@ -19,6 +19,8 @@ class CollectionsController < ApplicationController
 
     @item_first = compare.sample
     @item_last = compare.sample
+    @next_first = compare.sample
+    @next_last = compare.sample
 
     if @wallet.present?
       @recent_vote_count = @collection.votes.where('wallet_id = ? AND created_at > ?', @wallet.id, Time.current - 60.minutes).count
@@ -30,7 +32,7 @@ class CollectionsController < ApplicationController
     
     respond_to do |format|
       format.html
-      format.json { render json: { collection: @collection, total_items: @collection.assets.count, total_votes: @collection.votes.count, percent_done: @collection.percentage_voted, rank_confidence: @collection.rank_confidence, item_first: @item_first, item_last: @item_last } }
+      format.json { render json: { collection: @collection.attributes.except('traits'), total_items: @collection.assets.count, total_votes: @collection.votes.count, percent_done: @collection.percentage_voted, rank_confidence: @collection.rank_confidence, item_first: @item_first.attributes.except('traits'), item_last: @item_last.attributes.except('traits'), next: {next_first: @next_first.attributes.except('traits'), next_last: @next_last.attributes.except('traits')} } }
     end
 
     if @item_first == @item_last or @item_first.blank? or @item_last.blank? 
