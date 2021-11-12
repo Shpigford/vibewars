@@ -26,6 +26,6 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-public/.DS_Store
 .env
 ngrok
+*/.DS_Store

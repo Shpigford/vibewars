@@ -13,6 +13,13 @@ namespace :maintenance do
     end
   end
 
+  desc "Fetch all images"
+  task :fetch_images => :environment do
+    Asset.all.find_each do |asset|
+      FetchImageWorker.perform_async(asset.id)
+    end
+  end
+
   desc "Rebuild ratings"
   task :rebuild_ratings => :environment do
     # Reset all ratings

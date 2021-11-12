@@ -13,6 +13,8 @@ class BuildAssetsWorker
       if opensea_asset.new_record?
         opensea_asset.collection_id = collection.id
         opensea_asset.save!
+        
+        FetchImageWorker.perform_in(10.seconds, opensea_asset.id)
       end
 
       opensea_asset.token_id = asset['token_id']
