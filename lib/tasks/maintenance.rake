@@ -3,6 +3,12 @@ namespace :maintenance do
   task :update_collections => :environment do
     Collection.all.each do |collection|
       BuildCollectionWorker.perform_async(collection.slug)
+    end
+  end
+
+  desc "Update rank"
+  task :update_rank => :environment do
+    Collection.all.each do |collection|
       UpdateRankWorker.perform_async(collection.id)
     end
   end
