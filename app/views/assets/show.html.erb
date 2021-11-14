@@ -1,4 +1,4 @@
-<% title "#{@asset.name} - #{@asset.collection.name} NFT Visual Battle" %>
+<% title "#{@asset.formatted_name} - #{@asset.collection.name} NFT Visual Battle" %>
 <% meta_image(@asset.image_url.sub('s120', 's600')) if @collection.image_url.present? %>
 
 <header class="bg-white shadow">
@@ -65,7 +65,7 @@
           <div class="px-4 py-5 sm:px-6">
             <div class="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-nowrap">
               <div class="ml-4 mt-2">
-                <h1 class="text-3xl font-bold"><%=@asset.name%></h1>
+                <h1 class="text-3xl font-bold"><%=@asset.formatted_name%></h1>
               </div>
               <div class="ml-4 mt-2 flex-shrink-0">
                 <div class="text-sm">
