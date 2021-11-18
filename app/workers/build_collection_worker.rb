@@ -6,7 +6,12 @@ class BuildCollectionWorker
 
     collection.save if collection.new_record?
 
-    os_collection = HTTParty.get("https://api.opensea.io/api/v1/collection/#{collection.slug}").body
+    os_collection = HTTParty.get(
+      "https://api.opensea.io/api/v1/collection/#{collection.slug}",
+      headers: { 
+        'X-API-KEY': ENV['OPENSEA'] 
+      }
+    ).body
     os_collection_data = JSON.parse(os_collection)
     collection_data = os_collection_data['collection']
     primary_contract = collection_data['primary_asset_contracts'][0]
