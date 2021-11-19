@@ -4,11 +4,7 @@ class BuildAssetsWorker
   def perform(slug, offset, direction="asc")
     collection = Collection.where(slug: slug).first
 
-    assets = HTTParty.get("https://api.opensea.io/api/v1/assets?order_direction=#{direction}&offset=#{offset}&limit=50&collection=#{collection.slug}", 
-      headers: { 
-        'X-API-KEY': ENV['OPENSEA'] 
-      }
-    ).body
+    assets = HTTParty.get("https://api.opensea.io/api/v1/assets?order_direction=#{direction}&offset=#{offset}&limit=50&collection=#{collection.slug}").body
     all_assets = JSON.parse(assets)
 
     all_assets['assets'].each do |asset|
