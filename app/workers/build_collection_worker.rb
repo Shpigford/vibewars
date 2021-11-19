@@ -1,6 +1,8 @@
 class BuildCollectionWorker
   include Sidekiq::Worker
 
+  sidekiq_options queue: :critical, lock: :while_executing, on_conflict: :reject
+
   def perform(slug)
     collection = Collection.where(slug: slug).first_or_initialize(slug: slug)
 
