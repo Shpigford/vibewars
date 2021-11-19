@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  asset: one
+  rank: 1
+  elo_rating: 9.99
+  votes_count: 1
+
+two:
+  asset: two
+  rank: 1
+  elo_rating: 9.99
+  votes_count: 1

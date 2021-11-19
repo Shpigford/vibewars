@@ -45,11 +45,11 @@ class CollectionsController < ApplicationController
 
     if params[:trait].present?
       params[:trait].each do |trait|
-        @assets = @assets.where('traits @> ?', [{trait_type: trait['type']}, {value: trait['value']}].to_json)
+        @assets = @assets.left_outer_joins(:ranking).where('traits @> ?', [{trait_type: trait['type']}, {value: trait['value']}].to_json)
       end
     end
 
-    @assets = @assets.where('rank > 0').order(rank: :asc).page params[:page]
+    @assets = @assets.left_outer_joins(:ranking).where('rankings.rank > 0').order('rankings.rank ASC').page params[:page]
 
     respond_to do |format|
       format.html

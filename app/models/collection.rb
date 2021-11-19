@@ -1,6 +1,7 @@
 class Collection < ApplicationRecord
   has_many :assets
   has_many :votes
+  has_many :rankings
 
   def rank_confidence
     raw_confidence = (self.assets.average(:votes_count) / 30) * 100

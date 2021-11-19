@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_08_164441) do
+ActiveRecord::Schema.define(version: 2021_11_19_153711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,18 @@ ActiveRecord::Schema.define(version: 2021_11_08_164441) do
     t.index ["traits"], name: "index_collections_on_traits", using: :gin
   end
 
+  create_table "rankings", force: :cascade do |t|
+    t.bigint "asset_id", null: false
+    t.bigint "collection_id", null: false
+    t.integer "rank", default: 0
+    t.decimal "elo_rating", default: "1600.0"
+    t.integer "votes_count", default: 0
+    t.index ["asset_id"], name: "index_rankings_on_asset_id"
+    t.index ["collection_id"], name: "index_rankings_on_collection_id"
+    t.index ["elo_rating"], name: "index_rankings_on_elo_rating"
+    t.index ["rank"], name: "index_rankings_on_rank"
+  end
+
   create_table "votes", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -104,5 +116,7 @@ ActiveRecord::Schema.define(version: 2021_11_08_164441) do
   end
 
   add_foreign_key "assets", "collections"
+  add_foreign_key "rankings", "assets"
+  add_foreign_key "rankings", "collections"
   add_foreign_key "votes", "wallets"
 end

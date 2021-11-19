@@ -95,7 +95,7 @@
                   <% @assets.each do |asset| %>
                   <tr>
                     <td class="pl-6 py-4 whitespace-nowrap text-gray-400 text-sm w-px text-center">
-                      <%= asset.rank %>
+                      <%= asset.ranking.rank %>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                       <div class="flex items-center">
@@ -127,9 +127,9 @@
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium w-px">
                       <p class="py-3 px-6 inline-flex text-lg leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                        <%=asset.elo_rating.round %>
+                        <%=asset.ranking.elo_rating.round %>
                       </p>
-                      <p class="text-xs text-gray-400 pt-1"><%= pluralize(asset.votes_count, 'vote') %></p>
+                      <p class="text-xs text-gray-400 pt-1"><%= pluralize(asset.ranking.votes_count, 'vote') %></p>
                     </td>
                   </tr>
                   <% end %>

@@ -21,15 +21,15 @@ class VotesController < ApplicationController
     if ((recent_vote > 0) or (ip_last_voted.present? and seconds_since_last_voted < 1.5))
       redirect_to collection_path(collection.slug)
     else      
-      win_probability = 1/(10.0 ** ((loser.elo_rating.to_f - winner.elo_rating.to_f)/400) + 1)
+      win_probability = 1/(10.0 ** ((loser.ranking.elo_rating.to_f - winner.ranking.elo_rating.to_f)/400) + 1)
       win_scoring_point = 1
       lose_scoring_point = 0
     
-      winner_new_rating = winner.elo_rating.to_f + (20 * (win_scoring_point - win_probability))
-      loser_new_rating = loser.elo_rating.to_f + (20 * (lose_scoring_point - win_probability))
+      winner_new_rating = winner.ranking.elo_rating.to_f + (20 * (win_scoring_point - win_probability))
+      loser_new_rating = loser.ranking.elo_rating.to_f + (20 * (lose_scoring_point - win_probability))
 
-      winner.update_attribute(:elo_rating, winner_new_rating)
-      loser.update_attribute(:elo_rating, loser_new_rating)
+      winner.ranking.update_attribute(:elo_rating, winner_new_rating)
+      loser.ranking.update_attribute(:elo_rating, loser_new_rating)
 
       if cookies[:wallet].present? and cookies[:wallet] != 'undefined'
         wallet = Wallet.find_or_create_by(address: cookies[:wallet])
@@ -43,8 +43,8 @@ class VotesController < ApplicationController
 
       Vote.create(winner_id: winner.id, loser_id: loser.id, ip_address: request.remote_ip, collection: winner.collection, wallet_id: wallet, discord_server_id: discord_server_id, discord_user_id: discord_user_id)
       
-      winner.increment!(:votes_count)
-      loser.increment!(:votes_count)
+      winner.ranking.increment!(:votes_count)
+      loser.ranking.increment!(:votes_count)
 
       redirect_to collection_path(collection.slug)
     end
