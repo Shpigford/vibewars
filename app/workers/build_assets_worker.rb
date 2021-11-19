@@ -6,7 +6,7 @@ class BuildAssetsWorker
 
     assets = HTTParty.get("https://api.opensea.io/api/v1/assets?order_direction=#{direction}&offset=#{offset}&limit=50&collection=#{collection.slug}", 
       headers: { 
-        'X-API-KEY': ENV['OPENSEA'] 
+        'X-API-KEY': ENV['OPENSEA'].split(',').sample 
       }
     ).body
     all_assets = JSON.parse(assets)

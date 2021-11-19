@@ -9,7 +9,7 @@ class BuildCollectionWorker
     os_collection = HTTParty.get(
       "https://api.opensea.io/api/v1/collection/#{collection.slug}",
       headers: { 
-        'X-API-KEY': ENV['OPENSEA'] 
+        'X-API-KEY': ENV['OPENSEA'].split(',').sample
       }
     ).body
     os_collection_data = JSON.parse(os_collection)
