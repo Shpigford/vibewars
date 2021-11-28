@@ -41,9 +41,12 @@ class BuildCollectionWorker
     collection.save
 
     # Kickoff asset workers
-    collection_size = collection_data['stats']['count'].to_i
+    current_collection_size = collection.count
+    total_collection_size = collection_data['stats']['count'].to_i
 
-    if collection_size > 10000
+    assets_to_process = total_collection_size - current_collection_size
+
+    if assets_to_process > 10000
       collection_remainder = collection_size - 10000
       
       (0..10000).step(50) do |n|
@@ -54,7 +57,10 @@ class BuildCollectionWorker
         BuildAssetsWorker.perform_async(collection.slug, n, 'desc')
       end
     else
-      (0..collection_size).step(50) do |n|
+      # Round down to the nearest 50 to make sure we don't miss any
+      starter = (current_collection_size/50.0).floor * 50
+
+      (starter..total_collection_size).step(50) do |n|
         BuildAssetsWorker.perform_async(collection.slug, n)
       end
     end
