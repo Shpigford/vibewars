@@ -10,7 +10,7 @@ class AssetsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: { collection: @collection, asset: @asset} }
+      format.json { render json: { collection: @collection.attributes.except('traits'), asset: @asset.attributes.except('traits'), rankings: @asset.ranking.attributes.except('id', 'asset_id', 'collection_id') } }
     end
   end
   
@@ -19,7 +19,7 @@ class AssetsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: { collection: @asset.collection, asset: @asset} }
+      format.json { render json: { collection: @asset.collection, asset: @asset, rankings: @asset.ranking.attributes.except('id', 'asset_id', 'collection_id')} }
     end
   end
 
