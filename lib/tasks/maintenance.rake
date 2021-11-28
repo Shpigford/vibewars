@@ -13,6 +13,17 @@ namespace :maintenance do
     end
   end
 
+  desc "Rebuild progress"
+  task :rebuild_progress => :environment do
+    Ranking.order(id: :asc).find_each do |ranking|
+      progress = ((ranking.votes_count / 30.0) * 100).clamp(0, 100)
+
+      ranking.update(progress: progress)
+
+      puts "#{ranking.id} - #{ranking.votes_count} - #{progress}"
+    end
+  end
+
   desc "Fetch all images"
   task :fetch_images => :environment do
     Asset.all.find_each do |asset|

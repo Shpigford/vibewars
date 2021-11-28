@@ -43,8 +43,14 @@ class VotesController < ApplicationController
 
       Vote.create(winner_id: winner.id, loser_id: loser.id, ip_address: request.remote_ip, collection: winner.collection, wallet_id: wallet, discord_server_id: discord_server_id, discord_user_id: discord_user_id)
       
-      winner.ranking.increment!(:votes_count)
-      loser.ranking.increment!(:votes_count)
+      winner_new_votes_count = winner.ranking.votes_count += 1
+      loser_new_votes_count = loser.ranking.votes_count += 1
+      
+      winner_progress = ((winner_new_votes_count / 30.0) * 100).clamp(0, 100)
+      loser_progress = ((loser_new_votes_count / 30.0) * 100).clamp(0, 100)
+
+      winner.ranking.update(progress: winner_progress, votes_count: winner_new_votes_count)
+      loser.ranking.update(progress: loser_progress, votes_count: loser_new_votes_count)
 
       redirect_to collection_path(collection.slug)
     end
