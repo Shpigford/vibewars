@@ -11,10 +11,10 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    compare = @collection.assets.where.not(image_url: nil).where('updated_at < ?', Time.current - 3.minutes).order(Arel.sql("(1 - (votes_count :: DECIMAL / MAX((votes_count+1) * 10000000) OVER())) * (floor(random() * 100 + 1) :: int) desc")).limit(100)
+    compare = @collection.assets.where.not(image_url: nil).where('updated_at < ?', Time.current - 3.minutes).order(Arel.sql("(1 - (votes_count :: DECIMAL / MAX((votes_count+1) * 10000000) OVER())) * (floor(random() * 100 + 1) :: int) desc")).limit(50)
 
     if compare.size < 10
-      compare = @collection.assets.where.not(image_url: nil).order(Arel.sql("(1 - (votes_count :: DECIMAL / MAX(votes_count * 10000000) OVER())) * (floor(random() * 100 + 1) :: int) desc")).limit(100)
+      compare = @collection.assets.where.not(image_url: nil).order(Arel.sql("(1 - (votes_count :: DECIMAL / MAX(votes_count * 10000000) OVER())) * (floor(random() * 100 + 1) :: int) desc")).limit(50)
     end
 
     @item_first = compare.sample
