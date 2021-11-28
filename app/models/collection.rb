@@ -4,7 +4,7 @@ class Collection < ApplicationRecord
   has_many :rankings
 
   def rank_confidence
-    raw_confidence = (self.assets.average(:votes_count) / 30) * 100
+    raw_confidence = (self.assets.left_outer_joins(:ranking).average('rankings.votes_count') / 30) * 100
     
     raw_confidence >= 100 ? 100.to_i : raw_confidence.to_f
   end
