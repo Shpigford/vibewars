@@ -47,7 +47,7 @@ class BuildCollectionWorker
     assets_to_process = total_collection_size - current_collection_size
 
     if assets_to_process > 10000
-      collection_remainder = collection_size - 10000
+      collection_remainder = total_collection_size - 10000
       
       (0..10000).step(50) do |n|
         BuildAssetsWorker.perform_async(collection.slug, n)
