@@ -41,7 +41,7 @@ class BuildCollectionWorker
     collection.save
 
     # Kickoff asset workers
-    current_collection_size = collection.count
+    current_collection_size = collection.assets.size
     total_collection_size = collection_data['stats']['count'].to_i
 
     assets_to_process = total_collection_size - current_collection_size
