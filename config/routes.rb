@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   get '/search', to: 'pages#search', as: 'search'
   get '/leaderboard', to: 'pages#leaderboard', as: 'leaderboard'
   get '/submit-project', to: 'pages#submit', as: 'submit'
+  get '/giveaway', to: 'pages#giveaway', as: 'giveaway'
 
   root "collections#index"
 
