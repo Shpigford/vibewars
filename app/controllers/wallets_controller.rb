@@ -4,6 +4,6 @@ class WalletsController < ApplicationController
 
   def show
     @wallet = Wallet.find_by(address: params[:id])
-    @assets = Asset.where(owner_address: @wallet.address.downcase).where('rank > 0').order(collection_id: :asc, rank: :asc)
+    @assets = Asset.left_outer_joins(:ranking).where(owner_address: @wallet.address.downcase).where('rankings.rank > 0').order('assets.collection_id ASC, rankings.rank ASC')
   end
 end
