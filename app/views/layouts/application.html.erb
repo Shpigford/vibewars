@@ -48,6 +48,8 @@
     <%#= stylesheet_link_tag "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
 
+    <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.0/dist/index.js"></script>
+    <script type="text/javascript" src="https://cdn.ethers.io/lib/ethers-5.1.umd.min.js"></script>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <script src="https://cdn.usefathom.com/script.js" data-site="MLLOEFAH" defer></script>
@@ -58,7 +60,7 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', ENV['GA']);
+      gtag('config', '<%= ENV['GA'] %>');
     </script>
   </head>
 
@@ -81,8 +83,8 @@
                     <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                     <a href="/" class="text-gray-300 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Collections</a>
                     <a href="/leaderboard" class="text-gray-300 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Leaderboard</a>
-                    <% if @wallet.present? %>
-                    <a href="/wallets/<%=@wallet.address%>" class="text-gray-300 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Wallet</a>
+                    <% if @current_wallet.present? %>
+                    <a href="/wallets/<%=@current_wallet.address%>" class="text-gray-300 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Wallet</a>
                     <% end %>
                     <a href="/submit-project" class="text-gray-300 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Submit Project</a>
                   </div>
@@ -133,13 +135,13 @@
               </div>
               <div class="hidden lg:block lg:ml-4">
                 <div class="flex items-center">
-                  <% if @wallet.present? %>
+                  <% if @current_wallet %>
                     <button type="button" class="text-white font-bold" id="btn-disconnect">
-                      <img src="<%=Identicon.data_url_for @wallet.address, 128, [16, 185, 129]%>" class="h-8 w-8 rounded-full inline mr-1" />
-                      <%= @wallet.address.truncate(12, omission: "...#{@wallet.address.last(4)}") %>
+                      <img src="https://abstract.cool/<%=@current_wallet.address%>.png" class="h-8 w-8 rounded-full inline mr-1" />
+                      <%= render partial: "shared/address", locals: {address: @current_wallet.address} %>
                     </button>
                   <% else %>
-                    <button type="button" class="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" id="btn-connect">
+                    <button data-controller="wallet" data-action="click->wallet#connectWallet" type="button" class="relative w-full items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                       Connect Wallet
                     </button>
                   <% end %>
@@ -169,8 +171,8 @@
             <div class="px-2 pt-2 pb-3 space-y-1">
               <a href="/" class="text-gray-300 hover:bg-indigo-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Collections</a>
               <a href="/leaderboard" class="text-gray-300 hover:bg-indigo-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Leaderboard</a>
-              <% if @wallet.present? %>
-              <a href="/wallets/<%=@wallet.address%>" class="text-gray-300 hover:bg-indigo-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Wallet</a>
+              <% if @current_wallet.present? %>
+              <a href="/wallets/<%=@current_wallet.address%>" class="text-gray-300 hover:bg-indigo-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Wallet</a>
               <% end %>
               <a href="/submit-project" class="text-gray-300 hover:bg-indigo-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Submit Project</a>
             </div>
@@ -205,10 +207,6 @@
         </div>
       </div>
     </footer>
-    <script type="text/javascript" src="https://unpkg.com/web3@1.2.11/dist/web3.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.0/dist/index.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/evm-chains@0.2.0/dist/umd/index.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/fortmatic@2.0.6/dist/fortmatic.js"></script>
+
   </body>
 </html>
