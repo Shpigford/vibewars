@@ -1,13 +1,6 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  get '/(*path)', to: redirect { |path_params, request|
-          "https://vibewars.com/#{path_params[:path]}"
-        },
-  status: 301,
-  constraints: { domain: 'vibewars-production.onrender.com' }
-
-
   mount Sidekiq::Web => "/sidekiq"
 
   resources :collections do
@@ -34,6 +27,8 @@ Rails.application.routes.draw do
   get '/giveaway', to: 'pages#giveaway', as: 'giveaway'
 
   root "collections#index"
+
+  post "/session", to: "session#create"
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 

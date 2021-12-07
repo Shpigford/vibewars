@@ -3,8 +3,14 @@
 
 import { application } from "./application"
 
-import VoteController from "./vote_controller.js"
-application.register("vote", VoteController)
+import AddressController from "./address_controller.js"
+application.register("address", AddressController)
 
 import MenuController from "./menu_controller.js"
 application.register("menu", MenuController)
+
+import VoteController from "./vote_controller.js"
+application.register("vote", VoteController)
+
+import WalletController from "./wallet_controller.js"
+application.register("wallet", WalletController)

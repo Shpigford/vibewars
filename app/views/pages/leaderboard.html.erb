@@ -9,7 +9,7 @@
   <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
     <div class="px-4 py-4 sm:px-0">
       
-      <% if !@wallet.present? %>
+      <% if !@current_wallet.present? %>
       <div class="rounded-md bg-indigo-50 p-4 mb-4 border-2 border-indigo-400">
         <div class="flex">
           <div class="flex-shrink-0">
@@ -49,7 +49,7 @@
                   </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                <% cache(['v3', "leaderboard"], expires_in: 1.hours) do %>
+                <% cache(['v4', "leaderboard"], expires_in: 1.hours) do %>
                 <% @leaders.each_with_index do |leader, index| %>
                   <tr>
                     <td class="pl-6 py-4 whitespace-nowrap text-gray-400 text-sm w-px text-center">
@@ -62,7 +62,7 @@
                         cache_name = "discord-#{leader[0][1]}"
                       end
 
-                      cache(['v2', "leaderboard-#{cache_name}"], expires_in: 12.hours) do 
+                      cache(['v3', "leaderboard-#{cache_name}"], expires_in: 12.hours) do 
                     %>
                     <% wallet = Wallet.find(leader[0][0]) if leader[0][0].present? %>
                     <% discord_user = @discord.user(leader[0][1]) if leader[0][1].present? %>
@@ -70,11 +70,7 @@
                       <div class="flex items-center">
                         <div class="flex-shrink-0 h-10 w-10">
                           <% if wallet.present? %>
-                            <% if wallet.opensea_profile_img_url.present? %>
-                            <img src="<%=wallet.opensea_profile_img_url%>" class="h-10 w-10 rounded-full" />
-                            <% else %>
-                              <img src="<%=Identicon.data_url_for wallet.address, 128, [16, 185, 129]%>" class="h-10 w-10 rounded-full" />
-                            <% end %>
+                            <img src="https://abstract.cool/<%=wallet.address%>.png" class="h-10 w-10 rounded-full inline mr-1" />
                           <% elsif discord_user.present? %>
                             <img src="<%=discord_user.avatar_url %>" class="h-10 w-10 rounded-full" />
                           <% end %>
@@ -82,11 +78,7 @@
                         <div class="ml-4">
                           <div class="text-sm font-medium text-gray-900">
                             <% if wallet.present? %>
-                              <% if wallet.opensea_username.present? %>
-                                <%=wallet.opensea_username%> <span class="text-gray-400">(<%= wallet.address.truncate(12, omission: "...#{wallet.address.last(4)}") %>)</span>
-                              <% else %>
-                                <%= wallet.address.truncate(12, omission: "...#{wallet.address.last(4)}") %>
-                              <% end %>
+                              <%= render partial: "shared/address", locals: {address: wallet.address} %>
                             <% elsif discord_user.present? %>
                               <%=discord_user.name %> <i class="fa-brands fa-discord text-gray-300 ml-1"></i>
                             <% end %>

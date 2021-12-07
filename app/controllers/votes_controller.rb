@@ -31,8 +31,8 @@ class VotesController < ApplicationController
       winner.ranking.update_attribute(:elo_rating, winner_new_rating)
       loser.ranking.update_attribute(:elo_rating, loser_new_rating)
 
-      if cookies[:wallet].present? and cookies[:wallet] != 'undefined'
-        wallet = Wallet.find_or_create_by(address: cookies[:wallet])
+      if session[:wallet].present? and session[:wallet] != 'undefined'
+        wallet = Wallet.find_or_create_by(address: session[:wallet])
         wallet = wallet.id
       else
         wallet = nil
