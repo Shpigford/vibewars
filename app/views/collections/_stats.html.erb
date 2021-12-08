@@ -1,4 +1,13 @@
-  <dl class="my-5 grid grid-cols-1 gap-5 sm:grid-cols-4 mx-2 md:mx-0">
+  <dl class="my-5 grid grid-cols-1 gap-5 sm:grid-cols-5 mx-2 md:mx-0">
+    <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+      <dt class="text-sm font-medium text-gray-500 truncate">
+        Total Items
+      </dt>
+      <dd class="mt-1 text-3xl font-semibold text-gray-900">
+        <%= number_with_delimiter(@collection.assets.count) %>
+      </dd>
+    </div>
+    
     <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
       <dt class="text-sm font-medium text-gray-500 truncate">
         Total Battles
@@ -10,10 +19,16 @@
 
     <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
       <dt class="text-sm font-medium text-gray-500 truncate">
-        Total Items
+        Your Battles
       </dt>
       <dd class="mt-1 text-3xl font-semibold text-gray-900">
-        <%= number_with_delimiter(@collection.assets.count) %>
+      <% if @current_wallet %>
+        <%= number_with_delimiter(@collection.votes.where(wallet_id: @current_wallet).count) %>
+      <% else %>
+        <button data-controller="wallet" data-action="click->wallet#connectWallet" type="button" class="relative w-full items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+        Connect Wallet
+        </button>
+      <% end %>
       </dd>
     </div>
 
