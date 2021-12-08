@@ -83,9 +83,6 @@
                     <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                     <a href="/" class="text-gray-300 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Collections</a>
                     <a href="/leaderboard" class="text-gray-300 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Leaderboard</a>
-                    <% if @current_wallet.present? %>
-                    <a href="/wallets/<%=@current_wallet.address%>" class="text-gray-300 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Wallet</a>
-                    <% end %>
                     <a href="/submit-project" class="text-gray-300 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Submit Project</a>
                   </div>
                 </div>
@@ -136,10 +133,10 @@
               <div class="hidden lg:block lg:ml-4">
                 <div class="flex items-center">
                   <% if @current_wallet %>
-                    <button type="button" class="text-white font-bold" id="btn-disconnect">
+                    <a href="/wallets/<%=@current_wallet.address%>" class="text-white font-bold">
                       <img src="https://abstract.cool/<%=@current_wallet.address%>.png" class="h-8 w-8 rounded-full inline mr-1" />
                       <%= render partial: "shared/address", locals: {address: @current_wallet.address} %>
-                    </button>
+                    </a>
                   <% else %>
                     <button data-controller="wallet" data-action="click->wallet#connectWallet" type="button" class="relative w-full items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                       Connect Wallet
@@ -171,9 +168,6 @@
             <div class="px-2 pt-2 pb-3 space-y-1">
               <a href="/" class="text-gray-300 hover:bg-indigo-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Collections</a>
               <a href="/leaderboard" class="text-gray-300 hover:bg-indigo-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Leaderboard</a>
-              <% if @current_wallet.present? %>
-              <a href="/wallets/<%=@current_wallet.address%>" class="text-gray-300 hover:bg-indigo-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Wallet</a>
-              <% end %>
               <a href="/submit-project" class="text-gray-300 hover:bg-indigo-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Submit Project</a>
             </div>
           </div>
