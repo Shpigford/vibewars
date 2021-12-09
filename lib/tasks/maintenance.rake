@@ -4,11 +4,11 @@ namespace :maintenance do
     Collection.all.each do |collection|
       BuildCollectionWorker.perform_async(collection.slug)
       
-      ProcessCollectionEventsWorker.perform_async(slug, 'created')
-      ProcessCollectionEventsWorker.perform_async(slug, 'successful')
-      ProcessCollectionEventsWorker.perform_async(slug, 'cancelled')
+      ProcessCollectionEventsWorker.perform_async(collection.slug, 'created')
+      ProcessCollectionEventsWorker.perform_async(collection.slug, 'successful')
+      ProcessCollectionEventsWorker.perform_async(collection.slug, 'cancelled')
 
-      UpdateSalesDataWorker.perform_async(slug)
+      UpdateSalesDataWorker.perform_async(collection.slug)
     end
 
     Wallet.all.each do |wallet|
