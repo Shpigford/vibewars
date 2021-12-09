@@ -1,6 +1,7 @@
 class Asset < ApplicationRecord
   belongs_to :collection
   has_one :ranking
+  has_one :wallet
   has_many :events
 
   def formatted_name

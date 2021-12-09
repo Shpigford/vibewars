@@ -10,6 +10,10 @@ namespace :maintenance do
 
       UpdateSalesDataWorker.perform_async(slug)
     end
+
+    Wallet.all.each do |wallet|
+      ProcessWalletHoldingsWorker.perform_async(wallet.id)
+    end
   end
 
   desc "Update rank"
