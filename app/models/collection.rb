@@ -2,6 +2,7 @@ class Collection < ApplicationRecord
   has_many :assets
   has_many :votes
   has_many :rankings
+  has_many :events
 
   def rank_confidence
     raw_confidence = self.assets.left_outer_joins(:ranking).average('rankings.progress')
