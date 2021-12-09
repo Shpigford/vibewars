@@ -7,6 +7,8 @@ namespace :maintenance do
       ProcessCollectionEventsWorker.perform_async(slug, 'created')
       ProcessCollectionEventsWorker.perform_async(slug, 'successful')
       ProcessCollectionEventsWorker.perform_async(slug, 'cancelled')
+
+      UpdateSalesDataWorker.perform_async(slug)
     end
   end
 
