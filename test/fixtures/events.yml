@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  opensea_id: 1
+  asset: one
+  auction_type: MyString
+  collection: one
+  duration: MyString
+  ending_price: MyString
+  event_type: MyString
+  starting_price: MyString
+  total_price: MyString
+  sale_token: MyString
+  sale_token_decimals: 1
+
+two:
+  opensea_id: 1
+  asset: two
+  auction_type: MyString
+  collection: two
+  duration: MyString
+  ending_price: MyString
+  event_type: MyString
+  starting_price: MyString
+  total_price: MyString
+  sale_token: MyString
+  sale_token_decimals: 1

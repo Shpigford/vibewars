@@ -3,6 +3,10 @@ namespace :maintenance do
   task :update_collections => :environment do
     Collection.all.each do |collection|
       BuildCollectionWorker.perform_async(collection.slug)
+      
+      ProcessCollectionEventsWorker.perform_async(slug, 'created')
+      ProcessCollectionEventsWorker.perform_async(slug, 'successful')
+      ProcessCollectionEventsWorker.perform_async(slug, 'cancelled')
     end
   end
 
