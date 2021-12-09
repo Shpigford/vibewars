@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   resources :votes
   resources :wallets
+  resources :admin
 
   get '/votes/:winner/:loser', to: 'votes#battle', as: 'votes_battle'
 

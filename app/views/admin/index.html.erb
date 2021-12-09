@@ -1,0 +1,28 @@
+<div class="max-w-4xl mx-auto py-6 sm:px-6 lg:px-8">
+
+  <section aria-labelledby="applicant-information-title">
+    <div class="bg-white shadow sm:rounded-lg">
+      <div class="px-4 py-5 sm:px-6">
+        <h2 id="applicant-information-title" class="text-lg leading-6 font-medium text-gray-900">
+          Add Collection
+        </h2>
+      </div>
+      <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+        <%= form_with(url: '/admin', model: @collection, class: 'divide-gray-200') do |form| %>
+          <div class="sm:col-span-4">
+            <%= form.label :slug, "Slug", class: 'block text-lg font-medium text-gray-700' %>
+            <div class="mt-1">
+              <%= form.text_field :slug, class: 'shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md' %>
+            </div>
+          </div>
+          <div class="pt-5">
+          <div class="flex justify-start">
+            <%= form.submit "Add collection", class: 'inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-md font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500' %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+
+</div>

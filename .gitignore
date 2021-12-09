@@ -30,3 +30,4 @@
 ngrok
 */.DS_Store
 test/workers/.DS_Store
+.solargraph.yml

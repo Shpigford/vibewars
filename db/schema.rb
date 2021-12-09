@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_09_162733) do
+ActiveRecord::Schema.define(version: 2021_12_09_173759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(version: 2021_12_09_162733) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "opensea_username"
     t.string "opensea_profile_img_url"
+    t.boolean "admin", default: false
   end
 
   add_foreign_key "assets", "collections"
