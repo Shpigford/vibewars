@@ -3,14 +3,22 @@ namespace :maintenance do
   task :update_collections => :environment do
     Collection.all.each do |collection|
       BuildCollectionWorker.perform_async(collection.slug)
-      
+    end
+  end
+
+  desc "Update sales"
+  task :update_sales => :environment do
+    Collection.all.each do |collection|
       ProcessCollectionEventsWorker.perform_async(collection.slug, 'created')
       ProcessCollectionEventsWorker.perform_async(collection.slug, 'successful')
       ProcessCollectionEventsWorker.perform_async(collection.slug, 'cancelled')
 
       UpdateSalesDataWorker.perform_async(collection.slug)
     end
+  end
 
+  desc "Update wallets"
+  task :update_wallets => :environment do
     Wallet.all.each do |wallet|
       ProcessWalletHoldingsWorker.perform_async(wallet.id)
     end
