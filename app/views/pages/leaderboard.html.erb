@@ -99,7 +99,7 @@
                         collections.each do |collection|
                           collection_item = Collection.find(collection[0])
                       %>
-                        <a href="<%=collection_url(collection_item.slug)%>"><img class="inline-block h-8 w-8 rounded-full ring-2 ring-white" src="<%=collection_item.image_url%>" alt="Dries Vincent"></a>
+                        <a href="<%=collection_path(collection_item.slug)%>"><img class="inline-block h-8 w-8 rounded-full ring-2 ring-white" src="<%=collection_item.image_url%>" alt="Dries Vincent"></a>
                       <% end %>
                       </div>
                       </div>
