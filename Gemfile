@@ -16,7 +16,7 @@ gem "puma", "~> 5.0"
 gem "importmap-rails", ">= 0.3.4"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem 'turbo-rails', git: 'git://github.com/hotwired/turbo-rails.git'
+gem 'turbo-rails', git: 'https://github.com/hotwired/turbo-rails.git'
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails", ">= 0.4.0"
@@ -39,7 +39,7 @@ gem "sidekiq"
 gem "browser"
 gem "skylight"
 gem "turnout"
-gem "kaminari", git: 'git://github.com/kaminari/kaminari.git'
+gem "kaminari", git: 'https://github.com/kaminari/kaminari.git'
 gem 'identicon'
 gem 'discordrb'
 gem 'dalli'
@@ -52,7 +52,7 @@ gem 'eth'
 # gem "bcrypt", "~> 3.1.7"
 
 # Use Sass to process CSS
-# gem "sassc-rails", "~> 2.1"
+gem "sassc-rails", "~> 2.1"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
