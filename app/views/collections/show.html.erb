@@ -112,13 +112,9 @@
 
                 <div data-vote-target="element" class="voted opacity-0 bg-black bg-opacity-70 flex justify-center items-center transition-all duration-100"><i class="fa-duotone fa-circle-check text-9xl text-green-500"></i></div>
 
-                <% if !browser.device.mobile? and @item_first.animation_url.present? and !browser.safari? %>
-                <video class="object-cover pointer-events-none" autoplay loop muted playsinline style="background:url('<%=@item_first.image_url%>') 50% 50%;background-size: cover;">
-                  <source src="<%=@item_first.animation_url%>" type="video/mp4">
-                </video>
-                <% else %>  
+                
                 <img src="<%=@item_first.image_url%>" alt="" class="object-cover pointer-events-none <%= 'bg-gray-100' if @item_first.background_color.blank? %>" <%= %Q[style=background-color:##{@item_first.background_color}] if @item_first.background_color.present? %>>
-                <% end %>
+                
                 
               </div>
               <% end %>
@@ -131,13 +127,9 @@
 
                 <div data-vote-target="element" class="voted opacity-0 bg-black bg-opacity-70 flex justify-center items-center transition-all duration-100"><i class="fa-duotone fa-circle-check text-9xl text-green-500"></i></div>
                 
-                <% if !browser.device.mobile? and @item_last.animation_url.present? and !browser.safari? %>
-                <video class="object-cover pointer-events-none" autoplay loop muted playsinline>
-                  <source src="<%=@item_last.animation_url%>" type="video/mp4">
-                </video>
-                <% else %>  
+               
                 <img src="<%=@item_last.image_url%>" alt="" class="object-cover pointer-events-none <%= 'bg-gray-100' if @item_last.background_color.blank? %>" <%= %Q[style=background-color:##{@item_last.background_color}] if @item_last.background_color.present? %>>
-                <% end %>
+                
                 
               </div>
               <% end %>
