@@ -60,6 +60,7 @@
 
       gtag('config', '<%= ENV['GA'] %>');
     </script>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
   <body class="h-full">
