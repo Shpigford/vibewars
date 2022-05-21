@@ -149,6 +149,9 @@ GEM
       concurrent-ruby (~> 1.0)
     identicon (0.0.5)
       chunky_png
+    importmap-rails (1.0.3)
+      actionpack (>= 6.0.0)
+      railties (>= 6.0.0)
     io-console (0.5.11)
     irb (1.4.1)
       reline (>= 0.3.0)
@@ -337,6 +340,7 @@ DEPENDENCIES
   eth (= 0.4.17)
   httparty
   identicon
+  importmap-rails
   jbuilder
   jsbundling-rails
   kaminari!

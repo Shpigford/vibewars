@@ -20,7 +20,7 @@ rails db:setup
 You can then run the rails web server:
 
 ```shell
-rails server
+bin/dev
 ```
 
 And visit [https://localhost:3000](https://localhost:3000)
