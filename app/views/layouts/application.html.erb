@@ -45,8 +45,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <%#= stylesheet_link_tag "inter-font", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
 
     <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.0/dist/index.js"></script>
     <script type="text/javascript" src="https://cdn.ethers.io/lib/ethers-5.1.umd.min.js"></script>
@@ -74,7 +72,7 @@
                   <p class="text-4xl text-center text-white align-middle">
                   <a href="/">
                     <i class="fa-duotone fa-poo-storm"></i>
-                    <span class="text-3xl font-bold align-top logo">Vibe Wars</span>
+                    <span class="text-3xl font-bold align-top lowercase">Vibe Wars</span>
                   </a>
                   </p>
                 </div>
@@ -172,8 +170,10 @@
             </div>
           </div>
         </nav>
-
+    
+  
         <%= yield %>
+    
       </div>
       
     <footer class="bg-white">

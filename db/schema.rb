@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_27_215123) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_05_21_200558) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -30,8 +29,8 @@ ActiveRecord::Schema.define(version: 2022_01_27_215123) do
     t.text "description"
     t.string "external_link"
     t.string "opensea_link"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.decimal "elo_rating", default: "1600.0"
     t.integer "votes_count", default: 0
     t.string "current_sale_price"
@@ -53,7 +52,7 @@ ActiveRecord::Schema.define(version: 2022_01_27_215123) do
   create_table "collections", force: :cascade do |t|
     t.string "name"
     t.text "banner_image_url"
-    t.datetime "creation_date", precision: 6
+    t.datetime "creation_date"
     t.text "description"
     t.text "discord_url"
     t.text "external_url"
@@ -67,8 +66,8 @@ ActiveRecord::Schema.define(version: 2022_01_27_215123) do
     t.string "schema_name"
     t.string "symbol"
     t.integer "count"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.jsonb "traits", default: "{}", null: false
     t.jsonb "filter_traits", default: {}, null: false
     t.index ["address"], name: "index_collections_on_address"
@@ -89,8 +88,8 @@ ActiveRecord::Schema.define(version: 2022_01_27_215123) do
     t.string "total_price"
     t.string "sale_token"
     t.integer "sale_token_decimals"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["asset_id"], name: "index_events_on_asset_id"
     t.index ["auction_type"], name: "index_events_on_auction_type"
     t.index ["collection_id"], name: "index_events_on_collection_id"
@@ -100,8 +99,8 @@ ActiveRecord::Schema.define(version: 2022_01_27_215123) do
   create_table "holdings", force: :cascade do |t|
     t.bigint "asset_id", null: false
     t.bigint "wallet_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["asset_id"], name: "index_holdings_on_asset_id"
     t.index ["wallet_id"], name: "index_holdings_on_wallet_id"
   end
@@ -121,8 +120,8 @@ ActiveRecord::Schema.define(version: 2022_01_27_215123) do
   end
 
   create_table "votes", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "ip_address"
     t.bigint "winner_id"
     t.bigint "loser_id"
@@ -142,8 +141,8 @@ ActiveRecord::Schema.define(version: 2022_01_27_215123) do
   create_table "wallets", force: :cascade do |t|
     t.string "address"
     t.string "ens"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "opensea_username"
     t.string "opensea_profile_img_url"
     t.boolean "admin", default: false
