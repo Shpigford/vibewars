@@ -52,6 +52,7 @@ gem 'dalli'
 gem 'connection_pool'
 gem "sentry-ruby"
 gem "sentry-rails"
+gem "sentry-sidekiq"
 gem 'eth', "0.4.17"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
