@@ -10,7 +10,7 @@ class UpdateSalesDataWorker
       if sale_created.present?
         sale_ended = asset.events.where(event_type: 'successful').or(asset.events.where(event_type: 'cancelled')).where('events.created_at > ?', sale_created.created_at)
 
-        if sale_ended.present?
+        if sale_ended.present? or (sale_created.created_at + sale_created.duration) > Date.today
           asset.current_sale_price = nil
           asset.current_sale_token = nil
           asset.current_sale_token_decimals = nil

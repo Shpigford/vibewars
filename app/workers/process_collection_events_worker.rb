@@ -12,7 +12,7 @@ class ProcessCollectionEventsWorker
     end
 
     more_events = true
-    offset = 0
+    offset = nil
     
     until more_events === false do
     
@@ -21,7 +21,7 @@ class ProcessCollectionEventsWorker
         puts key
 
         os_collection = HTTParty.get(
-          "https://api.opensea.io/api/v1/events?collection_slug=#{collection.slug}&event_type=#{type}&only_opensea=false&occurred_after=#{unix_timestamp}&offset=#{offset}&limit=300",
+          "https://api.opensea.io/api/v1/events?collection_slug=#{collection.slug}&event_type=#{type}&only_opensea=false&occurred_after=#{unix_timestamp}&cursor=#{offset}",
           headers: { 
             'X-API-KEY': key
           }
@@ -38,7 +38,7 @@ class ProcessCollectionEventsWorker
         retry
       end
 
-      if os_collection_data['asset_events'].blank?
+      if os_collection_data['next'].blank?
         more_events = false
       else
         puts "#{slug} - #{type} - #{occurred_after} - #{offset}"
@@ -50,25 +50,28 @@ class ProcessCollectionEventsWorker
             event = Event.find_or_create_by(opensea_id: os_event['id'])
 
             event.asset = Asset.find_by(opensea_id: os_event['asset']['id'])
-            event.collection = event.asset.collection
-            event.auction_type = os_event['auction_type']
-            event.duration = os_event['duration']
-            event.ending_price = os_event['ending_price']
-            event.event_type = os_event['event_type']
-            event.starting_price = os_event['starting_price']
-            event.total_price = os_event['total_price']
-            event.created_at = os_event['created_date'].to_datetime
 
-            if os_event['payment_token'].present?
-              event.sale_token = os_event['payment_token']['symbol']
-              event.sale_token_decimals = os_event['payment_token']['decimals']
+            if event.asset.present?
+              event.collection = event.asset.collection
+              event.auction_type = os_event['auction_type']
+              event.duration = os_event['duration']
+              event.ending_price = os_event['ending_price']
+              event.event_type = os_event['event_type']
+              event.starting_price = os_event['starting_price']
+              event.total_price = os_event['total_price']
+              event.created_at = os_event['created_date'].to_datetime
+
+              if os_event['payment_token'].present?
+                event.sale_token = os_event['payment_token']['symbol']
+                event.sale_token_decimals = os_event['payment_token']['decimals']
+              end
+
+              event.save
             end
-
-            event.save
           end
         end
 
-        offset += 300
+        offset = os_collection_data['next']
       end
     end
 
