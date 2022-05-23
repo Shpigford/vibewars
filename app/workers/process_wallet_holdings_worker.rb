@@ -7,7 +7,7 @@ class ProcessWalletHoldingsWorker
     addresses = Collection.pluck(:address).uniq.compact.map { |address| "asset_contract_addresses=#{address}" }.join("&")
 
     more_assets = true
-    offset = 0
+    offset = nil
 
     Holding.where(wallet: wallet).delete_all
 
@@ -18,7 +18,7 @@ class ProcessWalletHoldingsWorker
         puts key
 
         os_collection = HTTParty.get(
-          "https://api.opensea.io/api/v1/assets?owner=#{wallet.address}&#{addresses}&order_direction=desc&offset=#{offset}&limit=50",
+          "https://api.opensea.io/api/v1/assets?owner=#{wallet.address}&#{addresses}&order_direction=desc&cursor=#{offset}&limit=50",
           headers: { 
             'X-API-KEY': key
           }
@@ -45,7 +45,9 @@ class ProcessWalletHoldingsWorker
           holding = Holding.find_or_create_by(asset: asset, wallet: wallet)
         end
 
-        offset += 50
+        more_assets = false if os_collection_data['next'].blank?
+
+        offset = os_collection_data['next']
       end
     end
   end

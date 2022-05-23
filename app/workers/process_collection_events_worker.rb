@@ -38,41 +38,39 @@ class ProcessCollectionEventsWorker
         retry
       end
 
-      if os_collection_data['next'].blank?
-        more_events = false
-      else
-        puts "#{slug} - #{type} - #{occurred_after} - #{offset}"
+      puts "#{slug} - #{type} - #{occurred_after} - #{offset}"
 
-        os_events = os_collection_data['asset_events']
+      os_events = os_collection_data['asset_events']
 
-        os_events.each do |os_event|
-          if os_event['asset'].present?
-            event = Event.find_or_create_by(opensea_id: os_event['id'])
+      os_events.each do |os_event|
+        if os_event['asset'].present?
+          event = Event.find_or_create_by(opensea_id: os_event['id'])
 
-            event.asset = Asset.find_by(opensea_id: os_event['asset']['id'])
+          event.asset = Asset.find_by(opensea_id: os_event['asset']['id'])
 
-            if event.asset.present?
-              event.collection = event.asset.collection
-              event.auction_type = os_event['auction_type']
-              event.duration = os_event['duration']
-              event.ending_price = os_event['ending_price']
-              event.event_type = os_event['event_type']
-              event.starting_price = os_event['starting_price']
-              event.total_price = os_event['total_price']
-              event.created_at = os_event['created_date'].to_datetime
+          if event.asset.present?
+            event.collection = event.asset.collection
+            event.auction_type = os_event['auction_type']
+            event.duration = os_event['duration']
+            event.ending_price = os_event['ending_price']
+            event.event_type = os_event['event_type']
+            event.starting_price = os_event['starting_price']
+            event.total_price = os_event['total_price']
+            event.created_at = os_event['created_date'].to_datetime
 
-              if os_event['payment_token'].present?
-                event.sale_token = os_event['payment_token']['symbol']
-                event.sale_token_decimals = os_event['payment_token']['decimals']
-              end
-
-              event.save
+            if os_event['payment_token'].present?
+              event.sale_token = os_event['payment_token']['symbol']
+              event.sale_token_decimals = os_event['payment_token']['decimals']
             end
+
+            event.save
           end
         end
-
-        offset = os_collection_data['next']
       end
+
+      more_assets = false if os_collection_data['next'].blank?
+
+      offset = os_collection_data['next']
     end
 
     
