@@ -108,7 +108,7 @@
                     </td>
                     
                     <td class="px-6 py-4 whitespace-nowrap text-left text-sm font-medium w-56">
-                    <% if asset.current_sale_price.present? %>
+                    <% if asset.current_sale_price.present? and asset.current_sale_token.present? %>
                     <a href="<%=asset.opensea_link %>" target="_blank">
                       <%= asset.current_sale_price.to_f / (10**asset.current_sale_token_decimals) %> <%=asset.current_sale_token %> <i class="fa-duotone fa-sack-dollar text-green-500"></i>
                     </a>
