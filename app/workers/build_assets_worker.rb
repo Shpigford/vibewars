@@ -2,10 +2,10 @@ class BuildAssetsWorker
   include Sidekiq::Worker
   sidekiq_options retry: 8
 
-  def perform(slug, offset, direction="asc")
+  def perform(slug, cursor, direction="asc")
     collection = Collection.where(slug: slug).first
 
-    assets = HTTParty.get("https://api.opensea.io/api/v1/assets?order_direction=#{direction}&offset=#{offset}&limit=50&collection=#{collection.slug}", 
+    assets = HTTParty.get("https://api.opensea.io/api/v1/assets?order_direction=#{direction}&cursor=#{cursor}&limit=50&collection=#{collection.slug}", 
       headers: { 
         'X-API-KEY': ENV['OPENSEA'].split(',').sample 
       }
@@ -73,6 +73,8 @@ class BuildAssetsWorker
           opensea_asset.save
         end
       end
+
+      BuildAssetsWorker.perform_async(collection.slug, all_assets['next']) if all_assets['next'].present?
     end
 
   end
