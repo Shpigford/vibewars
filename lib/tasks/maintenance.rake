@@ -49,6 +49,15 @@ namespace :maintenance do
     end
   end
 
+  desc "Update leaderboards"
+  task :update_leaderboards => :environment do
+    Collection.all.each do |collection|
+      PrecacheLeaderboardsJob.perform_async(collection.id)
+    end
+
+    PrecacheLeaderboardsJob.perform_async
+  end
+
   # desc "Rebuild ratings"
   # task :rebuild_ratings => :environment do
   #   # Reset all ratings
