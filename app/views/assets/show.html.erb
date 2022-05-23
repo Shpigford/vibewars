@@ -136,7 +136,7 @@
             </div>
           </div>
 
-          <% if @asset.current_sale_price.present? %>
+          <% if @asset.current_sale_price.present? and @asset.current_sale_token.present? %>
           <div class="relative bg-white overflow-hidden shadow rounded-lg flex">
             <div class="flex-shrink-0 flex items-center justify-center w-16 bg-blue-500 text-white text-4xl font-bold rounded-l-md">
               P
