@@ -10,7 +10,12 @@ class BuildAssetsWorker
         'X-API-KEY': ENV['OPENSEA'].split(',').sample 
       }
     ).body
-    all_assets = JSON.parse(assets)
+
+    if assets.include?("Access denied")
+      raise "Access denied."
+    else
+      all_assets = JSON.parse(assets)
+    end
 
     if all_assets['detail'].present? and all_assets['detail'] == "Request was throttled."
       raise "Request was throttled."
